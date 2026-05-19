@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcadia Multiverse - Character Prompt Studio V12</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">🌌</div>
+      <div>
+        <h1>Character Prompt Studio V12</h1>
+        <p>เลือกตัวละคร เลือกท่า แล้วคัดลอก Prompt ได้ทันที</p>
+      </div>
+    </div>
+    <div class="top-stats">
+      <span><b id="statCharacters">0</b> characters</span>
+      <span><b id="statPoses">0</b> poses</span>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="stepper" aria-label="V11 steps">
+      <button id="stepBtn1" class="step-pill active" type="button" data-action="go-step" data-step="1"><b>1</b><span>เลือกตัวละคร</span></button>
+      <button id="stepBtn2" class="step-pill" type="button" data-action="go-step" data-step="2"><b>2</b><span>เลือกท่า</span></button>
+      <button id="stepBtn3" class="step-pill" type="button" data-action="go-step" data-step="3"><b>3</b><span>Copy Prompt</span></button>
+    </section>
+
+    <section id="step1" class="panel step-panel active">
+      <div class="panel-head">
+        <div>
+          <h2>เลือกตัวละครก่อน</h2>
+          <p>หน้าแรกแสดงเฉพาะตัวละคร เพื่อไม่ให้ตาลายจาก pose/item/options ทั้งหมด</p>
+        </div>
+        <button class="ghost-btn" type="button" data-action="clear-character-filters">ล้าง Filter</button>
+      </div>
+
+      <div class="filter-grid character-filters">
+        <select id="factionFilter"></select>
+        <select id="genderFilter"></select>
+        <select id="roleFilter"></select>
+        <input id="characterSearch" type="search" placeholder="ค้นหาชื่อตัวละคร / item / tag" />
+      </div>
+
+      <div class="section-title-row">
+        <h3 id="charCountLabel">ตัวละครทั้งหมด</h3>
+        <span id="selectedCharacterHint" class="hint-chip">ยังไม่ได้เลือกตัวละคร</span>
+      </div>
+      <div id="characterGrid" class="character-grid"></div>
+    </section>
+
+    <section id="step2" class="panel step-panel">
+      <div class="panel-head sticky-head">
+        <div>
+          <h2>เลือกท่าที่เข้ากับตัวละคร</h2>
+          <p id="poseIntro">เลือกตัวละครก่อน แล้วระบบจะแสดงเฉพาะ pose ที่เหมาะสม</p>
+        </div>
+        <button class="ghost-btn" type="button" data-action="go-step" data-step="1">เปลี่ยนตัวละคร</button>
+      </div>
+
+      <div id="characterSummary" class="summary-card"></div>
+
+      <div id="step2QuickCopy" class="quick-copy-panel hidden">
+        <div>
+          <h3>Quick Copy</h3>
+          <p id="step2QuickCopyMeta">เลือกท่าก่อน แล้วกดคัดลอกได้จากตรงนี้ทันที</p>
+        </div>
+        <div class="quick-copy-actions">
+          <button class="primary-btn" type="button" data-action="copy-positive">Copy Positive</button>
+          <button class="dark-btn" type="button" data-action="copy-both">Copy Both</button>
+          <button class="ghost-btn" type="button" data-action="view-full-prompt">ดู Prompt เต็ม</button>
+        </div>
+      </div>
+
+      <div class="pose-toolbar">
+        <div class="pose-view-tabs" role="group" aria-label="Pose view">
+          <button id="poseViewRecommended" type="button" data-action="set-pose-view" data-pose-view="recommended">✨ Recommended</button>
+          <button id="poseViewCollection" type="button" data-action="set-pose-view" data-pose-view="collection">💋 Glamour</button>
+          <button id="poseViewAll" type="button" data-action="set-pose-view" data-pose-view="all">คลังที่ใช้ได้ทั้งหมด</button>
+          <button id="poseViewFavorites" type="button" data-action="set-pose-view" data-pose-view="favorites">★ Favorite</button>
+        </div>
+        <div class="filter-grid pose-filters">
+          <select id="poseCategoryFilter"></select>
+          <input id="poseSearch" type="search" placeholder="ค้นหาท่า เช่น standing, throne, close-up" />
+          <button class="primary-soft" type="button" data-action="suggest-pose">🎲 Suggest</button>
+        </div>
+      </div>
+
+      <div class="item-mode-box">
+        <div>
+          <b>Item Mode</b>
+          <p>V11 ใช้ characterCore / personalItem เพื่อเปิด-ปิดของโดยไม่ทำให้ตัวละครเปลี่ยน</p>
+        </div>
+        <div class="item-toggle">
+          <button id="itemWithBtn" type="button" data-action="set-item-mode" data-item-mode="with_item">ถือของประจำตัว</button>
+          <button id="itemNoneBtn" type="button" data-action="set-item-mode" data-item-mode="no_item">ไม่ถืออะไร</button>
+        </div>
+      </div>
+
+      <div class="section-title-row">
+        <h3 id="poseCountLabel">Pose</h3>
+        <span id="poseModeHint" class="hint-chip">Recommended คือหน้าร้าน ส่วนคลัง 300+ ยังอยู่ครบ</span>
+      </div>
+      <div id="poseList" class="pose-grid"></div>
+      <div class="bottom-actions">
+        <button class="ghost-btn" type="button" data-action="go-step" data-step="1">← กลับไปเลือกตัวละคร</button>
+        <button class="primary-btn" type="button" data-action="go-step" data-step="3">ดู Prompt →</button>
+      </div>
+    </section>
+
+    <section id="step3" class="panel step-panel">
+      <div class="panel-head sticky-head">
+        <div>
+          <h2>Prompt พร้อมใช้งาน</h2>
+          <p>ตรวจ summary แล้ว copy ไปสร้างภาพได้เลย</p>
+        </div>
+        <div class="head-actions prompt-top-actions">
+          <button class="ghost-btn" type="button" data-action="go-step" data-step="2">เปลี่ยนท่า</button>
+          <button class="ghost-btn" type="button" data-action="go-step" data-step="1">แก้ไขตัวละคร</button>
+        </div>
+      </div>
+
+      <div id="finalSummary" class="summary-card"></div>
+
+      <div class="style-row" id="styleList"></div>
+
+      <div class="item-mode-box prompt-mode-box">
+        <div>
+          <b>Prompt Mode</b>
+        </div>
+        <div class="item-toggle">
+          <button id="promptModeCompactBtn" type="button" data-action="set-prompt-mode" data-prompt-mode="compact">Compact</button>
+          <button id="promptModeDebugBtn" type="button" data-action="set-prompt-mode" data-prompt-mode="full_debug">Full Debug</button>
+        </div>
+      </div>
+
+      <div id="compatNote" class="compat-note"></div>
+
+      <div class="quick-copy-panel prompt-copy-panel">
+        <div>
+          <h3>คัดลอกทันที</h3>
+          <p>ปุ่มอยู่เหนือ prompt แล้ว ไม่ต้องเลื่อนลงท้ายกล่องยาว ๆ</p>
+        </div>
+        <div class="quick-copy-actions">
+          <button class="primary-btn" type="button" data-action="copy-positive">Copy Positive</button>
+          <button class="danger-btn" type="button" data-action="copy-negative">Copy Negative</button>
+          <button class="dark-btn" type="button" data-action="copy-both">Copy Both</button>
+          <button class="primary-soft" type="button" data-action="copy-both-return">Copy Both + เลือกท่าต่อ</button>
+        </div>
+      </div>
+
+      <div class="prompt-tabs">
+        <button id="tabPositive" class="active" type="button" data-action="set-prompt-tab" data-prompt-tab="positive">Positive</button>
+        <button id="tabNegative" type="button" data-action="set-prompt-tab" data-prompt-tab="negative">Negative</button>
+      </div>
+
+      <pre id="positivePrompt" class="prompt-box positive"></pre>
+      <pre id="negativePrompt" class="prompt-box negative hidden"></pre>
+
+      <div class="copy-actions">
+        <button class="primary-btn" type="button" data-action="copy-positive">Copy Positive</button>
+        <button class="danger-btn" type="button" data-action="copy-negative">Copy Negative</button>
+        <button class="dark-btn" type="button" data-action="copy-both">Copy Both</button>
+        <button class="primary-soft" type="button" data-action="suggest-pose-and-view">🎲 Suggest Random Pose</button>
+      </div>
+
+      <details class="history-panel" open>
+        <summary>ประวัติ Prompt ล่าสุด 10 รายการ</summary>
+        <div id="historyList" class="history-list"></div>
+      </details>
+    </section>
+  </main>
+
+  <aside id="desktopFloatingCopyPanel" class="desktop-floating-copy-panel" aria-label="Copy prompt panel" aria-live="polite">
+    <div class="floating-copy-header">
+      <div>
+        <div class="floating-copy-kicker">Prompt Ready</div>
+        <div id="floatingCopyTitle" class="floating-copy-title">เลือกตัวละครและท่าก่อน</div>
+      </div>
+      <button id="floatingCopyToggle" class="floating-copy-toggle" type="button" data-action="toggle-floating-copy-panel" aria-label="ย่อแผง copy">−</button>
+    </div>
+
+    <div id="floatingCopyHelper" class="floating-copy-helper">เลือกตัวละครก่อน</div>
+
+    <div class="floating-copy-summary">
+      <div>Character: <span id="floatingCopyCharacter">—</span></div>
+      <div>Pose: <span id="floatingCopyPose">—</span></div>
+      <div>Mode: <span id="floatingCopyMode">—</span></div>
+    </div>
+
+    <div class="floating-copy-actions">
+      <button type="button" data-action="copy-positive" id="floatingCopyPositive" aria-label="Copy Positive prompt">Copy Positive</button>
+      <button type="button" data-action="copy-negative" id="floatingCopyNegative" aria-label="Copy Negative prompt">Copy Negative</button>
+      <button type="button" data-action="copy-both" id="floatingCopyBoth" aria-label="Copy Positive and Negative prompts">Copy Both</button>
+      <button type="button" data-action="view-full-prompt" id="floatingViewPrompt">ดู Prompt เต็ม</button>
+    </div>
+  </aside>
+
+  <button id="floatingCopyCollapsedButton" class="floating-copy-collapsed" type="button" data-action="toggle-floating-copy-panel" aria-label="เปิดแผง copy">📋 Copy</button>
+
+  <div id="mobileCopyBar" class="mobile-copy-bar" aria-live="polite">
+    <div class="mobile-copy-meta">
+      <div id="mobileCopyTitle" class="mobile-copy-title">ยังไม่ได้เลือกท่า</div>
+      <div id="mobileCopySub" class="mobile-copy-sub">เลือกตัวละครและท่าเพื่อคัดลอก Prompt</div>
+    </div>
+    <div class="mobile-copy-actions">
+      <button class="mobile-copy-primary" type="button" data-action="copy-positive">Copy</button>
+      <button class="mobile-copy-secondary" type="button" data-action="copy-both">Both</button>
+      <button class="mobile-copy-ghost" type="button" data-action="copy-positive-return">Copy+ต่อ</button>
+      <button class="mobile-copy-ghost" type="button" data-action="view-full-prompt">ดู</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Copied!</div>
+
+  <script src="./data.js"></script>
+  <script src="./data/characters/characters_core.js"></script>
+  <script src="./data/characters/characters_elysian_apex.js"></script>
+  <script src="./data/characters/characters_elysian_apex_expansion_v2_simple_items.js"></script>
+  <script src="./data/characters/characters_elysian_apex_expansion_2.js"></script>
+  <script src="./data/characters/characters_elysian_apex_expansion_3.js"></script>
+  <script src="./data/characters/characters_norse_valkyrie_dominion.js"></script>
+  <script src="./data/characters/characters_norse_valkyrie_dominion_expansion_2.js"></script>
+  <script src="./data/characters/characters_solar_necropolis_egypt.js"></script>
+  <script src="./data/characters/characters_solar_necropolis_egypt_expansion_2.js"></script>
+  <script src="./data/characters/characters_heavenly_kami_war_court.js"></script>
+  <script src="./data/characters/characters_heavenly_kami_war_court_expansion_2.js"></script>
+  <script src="./data/characters/characters_heavenly_kami_war_court_expansion_3.js"></script>
+  <script src="./data/characters/index.js"></script>
+  <script src="./poseLibraryV11_clean.js"></script>
+  <script src="./pose_packs/post_cleanup_pose_expansion_final_79.js"></script>
+  <script src="./pose_packs/v11_1_x2_camera_driven_glamour_pose_pack_20.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

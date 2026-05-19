@@ -1,0 +1,146 @@
+[
+  {
+    "before": {
+      "id": "2552",
+      "name": "Tamamo-no-Mae (Nine-Tailed Fox War Courtesan)",
+      "title": "Nine-Tailed Fox War Courtesan"
+    },
+    "after": {
+      "id": "2552",
+      "name": "Tamamo Foxfire Courtesan",
+      "title": "Nine-Tailed Foxfire War Courtesan"
+    }
+  },
+  {
+    "before": {
+      "id": "2554",
+      "name": "Kiyohime (Bell-Burning Serpent Bride)",
+      "title": "Bell-Burning Serpent Bride"
+    },
+    "after": {
+      "id": "2554",
+      "name": "Kiyohime Bell-Burning Bride",
+      "title": "Bell-Burning Serpent Bride"
+    }
+  },
+  {
+    "before": {
+      "id": "2557",
+      "name": "Hannya (Jealous Mask Avenger)",
+      "title": "Jealous Mask Avenger"
+    },
+    "after": {
+      "id": "2557",
+      "name": "Hannya Crimson Avenger",
+      "title": "Crimson Mask Vengeance Avenger"
+    }
+  },
+  {
+    "before": {
+      "id": "2558",
+      "name": "Nure-onna (Serpent River Executioner)",
+      "title": "Serpent River Executioner"
+    },
+    "after": {
+      "id": "2558",
+      "name": "Nure-onna Abyss Serpent",
+      "title": "River-Abyss Serpent Executioner"
+    }
+  },
+  {
+    "before": {
+      "id": "2575",
+      "name": "Ukanomitama (Rice Granary Guardian)",
+      "title": "Rice Granary Guardian"
+    },
+    "after": {
+      "id": "2575",
+      "name": "Ukanomitama Granary Warden",
+      "title": "Golden Granary Guardian"
+    }
+  },
+  {
+    "before": {
+      "id": "2576",
+      "name": "Sarutahiko (Crossroads Tengu Vanguard)",
+      "title": "Crossroads Tengu Vanguard"
+    },
+    "after": {
+      "id": "2576",
+      "name": "Sarutahiko Roadgate Vanguard",
+      "title": "Battlefield Pathfinder Vanguard"
+    }
+  },
+  {
+    "before": {
+      "id": "2578",
+      "name": "Konohanasakuya-hime (Cherry Blossom Flame Princess)",
+      "title": "Cherry Blossom Flame Princess"
+    },
+    "after": {
+      "id": "2578",
+      "name": "Konohanasakuya Ash Bloom",
+      "title": "Ashen Blossom Flame Empress"
+    }
+  },
+  {
+    "before": {
+      "id": "2603",
+      "name": "Watatsumi (Deep Tide Commandress)",
+      "title": "Deep Tide Commandress"
+    },
+    "after": {
+      "id": "2603",
+      "name": "Watatsumi Tide Commandress",
+      "title": "Deep Tide War Commandress"
+    }
+  },
+  {
+    "before": {
+      "id": "2606",
+      "name": "Takemikazuchi (Thunder Deer Blade General)",
+      "title": "Thunder Deer Blade General"
+    },
+    "after": {
+      "id": "2606",
+      "name": "Takemikazuchi War Marshal",
+      "title": "Thunder Banner War Marshal"
+    }
+  },
+  {
+    "before": {
+      "id": "2607",
+      "name": "Futsunushi (Sacred Sword Marshal)",
+      "title": "Sacred Sword Marshal"
+    },
+    "after": {
+      "id": "2607",
+      "name": "Futsunushi Blade Arbiter",
+      "title": "Imperial Execution Blade Arbiter"
+    }
+  },
+  {
+    "before": {
+      "id": "2611",
+      "name": "Ame-no-Tajikarao (Cave-Door Breaker Queen)",
+      "title": "Cave-Door Breaker Queen"
+    },
+    "after": {
+      "id": "2611",
+      "name": "Ame-no-Tajikarao Colossus",
+      "title": "Heaven-Door Breaker Colossus"
+    }
+  },
+  {
+    "before": {
+      "id": "2640",
+      "name": "Ame-no-Habakiri (Serpent-Slaying Heaven Blade)",
+      "title": "Serpent-Slaying Heaven Blade"
+    },
+    "after": {
+      "id": "2640",
+      "name": "Ame-no-Habakiri Stormfang",
+      "title": "Stormfang Serpent-Slayer Relic"
+    }
+  }
+]

@@ -1,0 +1,102 @@
+﻿{
+  "V11X2-CG-01": {
+    "risk": "May overlap with existing overhead recline or floor lounge poses. Keep only if the top-down spiral S-curve is clearly distinct.",
+    "nearest": "V11X-CG-01 token overlap 22.2%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-02": {
+    "risk": "High risk. This may overlap with the existing kneeling floor-hand goddess pose / Centered Kneeling Floor-Hand Goddess Pose. Keep only if high-angle framing, forward lean, and hand placement are distinct enough. Otherwise skip or merge and report the reason.",
+    "nearest": "V11X-CG-02 token overlap 22.6%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-03": {
+    "risk": "May overlap with low-angle reaching hand glamour poses. Keep if the floor-level kneeling-above-viewer staging and foreground hand perspective are distinct.",
+    "nearest": "V11X-CG-03 token overlap 20.3%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-04": {
+    "risk": "May overlap with low-angle runway or low-angle power-curve poses. Keep if it preserves true worm's-eye vertical standing arch.",
+    "nearest": "V11X-CG-04 token overlap 31.7%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-05": {
+    "risk": "May overlap with rear low-angle over-shoulder poses. Keep if this version is less extreme and clearly rear three-quarter editorial.",
+    "nearest": "V11X-CG-05 token overlap 27.5%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-06": {
+    "risk": "May overlap with existing side-recline or floor-lounge poses. Keep if the low side camera and full S-curve editorial bodyline are distinct.",
+    "nearest": "SSE-01 token overlap 16.5%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-07": {
+    "risk": "May overlap with general seated twist poses. Keep if platform-edge staging is part of the pose identity.",
+    "nearest": "V11X-CG-07 token overlap 16.4%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-08": {
+    "risk": "May overlap with floating divine poses. Keep if camera tilt and diagonal fashion framing are the primary feature, not combat flight.",
+    "nearest": "V11X-CG-08 token overlap 24.6%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-09": {
+    "risk": "May overlap with close lens reaching hand poses. Keep if it frames the face rather than reaching toward the viewer.",
+    "nearest": "V11X-CG-09 token overlap 24.5%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-10": {
+    "risk": "May overlap with low-angle runway/power poses. Keep if raised platform or stair step-up staging is clear.",
+    "nearest": "V11X-CG-10 token overlap 21.1%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-11": {
+    "risk": "May overlap with overhead recline poses, but keep if compact crescent C-curve is distinct from long diagonal S-curve.",
+    "nearest": "PCA-CAM-05 token overlap 16.7%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-12": {
+    "risk": "May overlap with side-lying editorial curve. Keep only if hip-level low side camera and lifted hip-pop bodyline remain distinct.",
+    "nearest": "V11X-CG-06 token overlap 18.3%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-13": {
+    "risk": "May overlap with overhead S-curve or high-angle recline poses. Keep if the upward back arch is the unique staging.",
+    "nearest": "V11X-CG-05 token overlap 23.2%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-14": {
+    "risk": "May overlap with low-angle seated lounge poses. Keep if worm's-eye floor camera and dominant seated sprawl are distinct.",
+    "nearest": "RW-GUN-06 token overlap 17.2%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-15": {
+    "risk": "High overlap risk with CG-05. Keep only if this version is more extreme and clearly behind-below overlook. Otherwise skip or merge with CG-05.",
+    "nearest": "V11X-CG-05 token overlap 16.4%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-16": {
+    "risk": "This is close-up character-selling / portrait glamour more than body showcase. Keep only if the library needs a strong hand-framed expression pose. In reports, classify it as close-up character-selling within camera-driven glamour, not as body showcase.",
+    "nearest": "V11X-CG-25 token overlap 25.4%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-17": {
+    "risk": "May overlap with waist-up glamour twist poses. Keep if tight crop and opposing chest/hip angle are distinct.",
+    "nearest": "V11X-CG-20 token overlap 19.3%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-18": {
+    "risk": "May overlap with CG-01 and CG-11. Keep only if extended leg as diagonal frame axis is clearly the unique feature.",
+    "nearest": "V11X-CG-01 token overlap 22.6%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-19": {
+    "risk": "May overlap with side-lying and low-side hip-pop poses. Keep if side high-angle folded-leg structure is distinct.",
+    "nearest": "V11X-CG-06 token overlap 20.7%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  },
+  "V11X2-CG-20": {
+    "risk": "May overlap with low-angle runway, low-angle reaching, or sitting sprawl poses. Keep if extreme foreshortening and foreground knee/leg staging are distinct.",
+    "nearest": "V11X-CG-14 token overlap 19.2%",
+    "decision": "kept - similar but distinct camera/framing/body staging"
+  }
+}
