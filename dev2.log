@@ -1,0 +1,14 @@
+
+> characteruniversereact@0.0.0 dev
+> vite
+
+11:58:10 AM [vite] (client) Re-optimizing dependencies because lockfile has changed
+
+  VITE v8.0.13  ready in 601 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+12:32:40 PM [vite] (client) hmr update /src/App.tsx
+1:03:04 PM [vite] (client) hmr update /src/App.tsx
+1:03:17 PM [vite] (client) hmr update /src/App.tsx
+1:03:52 PM [vite] (client) hmr update /src/App.tsx
