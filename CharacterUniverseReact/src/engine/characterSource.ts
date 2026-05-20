@@ -1,12 +1,19 @@
-import { activeCharacters, characterFactions } from '../data';
-import { characterSearchRank, inferGender } from './characterUtils';
+import { activeCharacters } from '../data';
+import { characterSearchRank, inferGender, getCharacterFaction } from './characterUtils';
 
 export function getAllCharacters() {
   return activeCharacters as any[];
 }
 
 export function getAllFactions() {
-  return characterFactions as any[];
+  const factionsMap = new Map<string, any>();
+  activeCharacters.forEach((c: any) => {
+    const f = getCharacterFaction(c);
+    if (!factionsMap.has(f.id)) {
+      factionsMap.set(f.id, f);
+    }
+  });
+  return Array.from(factionsMap.values()).sort((a, b) => a.thaiName.localeCompare(b.thaiName, 'th'));
 }
 
 export function getVisibleCharacters(filters: { search: string, factionId: string, gender: string, role: string }) {
@@ -23,9 +30,10 @@ export function getVisibleCharacters(filters: { search: string, factionId: strin
     }
 
     if (filters.factionId && filters.factionId !== 'all') {
-      const fid = char.factionId || char.f;
-      if (String(fid) !== String(filters.factionId)) return false;
+      const f = getCharacterFaction(char);
+      if (f.id !== filters.factionId) return false;
     }
+
 
     if (filters.gender && filters.gender !== 'all') {
       if (inferGender(char) !== filters.gender) return false;
