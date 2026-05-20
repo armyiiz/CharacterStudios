@@ -1,5 +1,5 @@
 import { activeCharacters, characterFactions } from '../data';
-import { characterSearchRank, inferGender, inferRole } from './characterUtils';
+import { characterSearchRank, inferGender } from './characterUtils';
 
 export function getAllCharacters() {
   return activeCharacters as any[];

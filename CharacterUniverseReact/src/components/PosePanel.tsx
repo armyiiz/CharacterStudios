@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useStudio } from '../state/StudioStore';
-import { activeCharacters, activePoses } from '../data';
+import { activeCharacters } from '../data';
 import { getVisiblePoses, getCategoryCountsForPoses } from '../engine/poseFilterEngine';
 import { poseUiCategory, POSE_UI_CATEGORY_META, POSE_UI_CATEGORY_ORDER } from '../engine/poseCategories';
 import QuickCopyPanel from './QuickCopyPanel';
@@ -14,7 +14,6 @@ export default function PosePanel() {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const selectedChar = useMemo(() => (activeCharacters as any[]).find(c => c.id === state.characterId), [state.characterId]);
-  const selectedPose = useMemo(() => (activePoses as any[]).find(p => p.id === state.poseId), [state.poseId]);
 
   // Get all compatible poses for category counts
   const allCompatible = useMemo(() => {
