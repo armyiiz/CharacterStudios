@@ -1,4 +1,4 @@
-﻿:root{
+:root{
   --bg:#f5f7fb; --panel:#ffffffcc; --line:#dbe3f0; --ink:#16213a; --muted:#667085;
   --indigo:#4f46e5; --violet:#7c3aed; --rose:#e11d48; --soft:#eef2ff; --ok:#059669;
 }
@@ -197,11 +197,6 @@ button:disabled{
 
 @media(min-width:1025px){
   .shell{padding-right:320px}
-  #step2QuickCopy,
-  #step3 .prompt-copy-panel,
-  #step3 .copy-actions{
-    display:none!important;
-  }
 }
 
 @media(max-width:1024px){
@@ -210,3 +205,14 @@ button:disabled{
     display:none!important;
   }
 }
+
+/* Utility classes */
+.mt-4{margin-top:16px}
+
+/* Favorite button */
+.fav-btn{
+  padding:4px 8px;font-size:16px;border:none;background:none;
+  cursor:pointer;color:#d4a843;transition:.12s ease;flex-shrink:0;
+}
+.fav-btn:hover{transform:scale(1.2)}
+

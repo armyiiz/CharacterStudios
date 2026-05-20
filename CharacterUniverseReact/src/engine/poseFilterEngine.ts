@@ -1,24 +1,15 @@
 import { activePoses } from '../data';
+import { poseUiCategory, POSE_UI_CATEGORY_ORDER, POSE_UI_CATEGORY_META } from './poseCategories';
+import { inferGender } from './characterUtils';
+import { getRecommendedPoses, getGlamourPoses } from './recommendationEngine';
+
+export { inferGender, POSE_UI_CATEGORY_ORDER, POSE_UI_CATEGORY_META };
 
 export function getAllPoses() {
   return activePoses;
 }
 
-export function inferGender(character: any) {
-  if (!character) return 'unknown';
-  const g = String(character.gender).toLowerCase();
-  if (g.includes('female')) return 'female';
-  if (g.includes('male')) return 'male';
-  return 'other';
-}
-
-export function poseUiCategory(p: any) {
-  if (p.uiCategory) return p.uiCategory;
-  if (p.category === 'glamour_showcase' && p.subcategory?.includes('camera_driven')) return 'camera_driven_glamour';
-  return p.category || 'all';
-}
-
-export function poseGenderFit(p: any, c: any) {
+export function poseGenderFit(p: any, c: any): string {
   const gender = inferGender(c);
   if (!p || !c || gender === 'unknown' || gender === 'other') return 'allow';
 
@@ -34,7 +25,7 @@ export function poseGenderFit(p: any, c: any) {
     if (fit === 'recommended' || fit === 'allow') return 'allow';
   }
 
-  // camera glamour male gate
+  // Camera glamour male gate
   if (gender === 'male' && poseUiCategory(p) === 'camera_driven_glamour') {
     const fit = p.genderFit && p.genderFit.male;
     if (fit === 'allow' || fit === 'recommended') return 'allow';
@@ -42,58 +33,100 @@ export function poseGenderFit(p: any, c: any) {
     return 'hide';
   }
 
+  // Hide clearly female-coded poses from male characters
+  if (gender === 'male') {
+    const blob = [p.id, p.title, p.titleTH, p.descriptionTH, p.subcategory, p.category].join('\n').toLowerCase();
+    const femaleSignals = ['villainess','heroine','goddess','queen sitting','queen pose','hair touch','hand near hair','glamour close-up'];
+    if (femaleSignals.some(k => blob.includes(k))) return 'hide';
+  }
+
   return 'allow';
 }
 
-export function isGenderCompatiblePose(p: any, c: any) {
+export function isGenderCompatiblePose(p: any, c: any): boolean {
   return poseGenderFit(p, c) !== 'hide';
 }
 
-// Item compatibility simplified from legacy app rules
-export function isPoseCompatibleWithCharacterItem(p: any, c: any, itemMode: string) {
+export function isPoseCompatibleWithCharacterItem(p: any, c: any, itemMode: string): boolean {
   if (itemMode === 'no_item') {
-    // Camera-driven glamour shouldn't show to with-item, but IS allowed in no_item (if female).
-    // Let's implement the specific logic: with-item sees NO camera_driven_glamour.
+    if (p.requiresItem === true) return false;
+    const uiCat = poseUiCategory(p);
+    if (['ranged_weapon','long_item','male_neutral_weapon'].includes(uiCat)) return false;
+    // Block poses with weapon/item language in no-item mode
+    const blob = [p?.id, p?.title, p?.titleTH, p?.subcategory, p?.uiCategory].join('\n').toLowerCase();
+    if (/longbow|archer|bow draw|gun aim|pistol|handgun|rifle|sniper|katana|sword|blade|dagger|spear|lance|scythe|shield|greatsword|weapon|staff|wand|cane|instrument|guitar|violin|book|notebook|scroll|cup|teacup|umbrella|fan|mirror|suitcase/.test(blob)) return false;
     return true;
   }
 
   const uiCat = poseUiCategory(p);
-
-  if (itemMode === 'with_item') {
-    // Rule: Weapon/item + with_item should not see camera-driven glamour poses
-    if (uiCat === 'camera_driven_glamour') return false;
-  }
+  if (itemMode === 'with_item' && uiCat === 'camera_driven_glamour') return false;
 
   const role = c?.personalItem?.itemRole || 'none';
   const isWeapon = role === 'weapon';
-
-  // Non-weapon items should not see active combat attack poses
   const isCombat = p.category === 'combat_attack' || p.subcategory === 'active_attack';
   if (!isWeapon && isCombat) return false;
 
-  // Explicit incompatibility
   if (p.avoidItemRoles && p.avoidItemRoles.includes(role)) return false;
 
   return true;
 }
 
-export function getVisiblePoses(character: any, itemMode: string, filters: { category: string, search: string }) {
+export function getVisiblePoses(
+  character: any,
+  itemMode: string,
+  filters: { category: string; search: string },
+  poseView: string = 'all',
+  favorites: string[] = []
+) {
   const poses = getAllPoses();
   const searchLower = (filters.search || '').toLowerCase();
 
-  return poses.filter(p => {
+  // Get all compatible poses
+  const compatible = (poses as any[]).filter(p => {
     if (!isGenderCompatiblePose(p, character)) return false;
     if (!isPoseCompatibleWithCharacterItem(p, character, itemMode)) return false;
-
-    if (filters.category && filters.category !== 'all') {
-      if (poseUiCategory(p) !== filters.category) return false;
-    }
-
-    if (searchLower) {
-      const matchTitle = p.title?.toLowerCase().includes(searchLower) || p.titleTH?.toLowerCase().includes(searchLower);
-      if (!matchTitle) return false;
-    }
-
     return true;
   });
+
+  // Apply pose view filter
+  let arr: any[];
+  switch (poseView) {
+    case 'recommended':
+      arr = getRecommendedPoses(compatible, character, itemMode);
+      break;
+    case 'glamour':
+      arr = getGlamourPoses(compatible);
+      break;
+    case 'favorites': {
+      const favSet = new Set(favorites);
+      arr = compatible.filter(p => favSet.has(String(p.id)));
+      break;
+    }
+    default:
+      arr = compatible;
+  }
+
+  // Apply category filter
+  if (filters.category && filters.category !== 'all') {
+    arr = arr.filter(p => poseUiCategory(p) === filters.category);
+  }
+
+  // Apply search filter
+  if (searchLower) {
+    arr = arr.filter(p => {
+      const matchTitle = p.title?.toLowerCase().includes(searchLower) || p.titleTH?.toLowerCase().includes(searchLower);
+      return matchTitle;
+    });
+  }
+
+  return arr;
+}
+
+export function getCategoryCountsForPoses(poses: any[]): Record<string, number> {
+  const counts: Record<string, number> = { all: poses.length };
+  for (const p of poses) {
+    const cat = poseUiCategory(p);
+    counts[cat] = (counts[cat] || 0) + 1;
+  }
+  return counts;
 }

@@ -27,12 +27,13 @@ const norseValkyrieDominionCharacters = [
     "tags": [
       "female",
       "glamour",
-      "ritual_item",
+      "weapon",
       "spear",
+      "battle_presence",
       "aura_effect",
       "rune_magic"
     ],
-    "presentationMode": "mystic",
+    "presentationMode": "combat",
     "characterCore": {
       "face": "wise beautiful adult raven queen face, one visible icy-blue eye, calm seductive authority, dark rune eyeliner",
       "hair": "long silver-white hair with raven-black streaks, thick clean waves",
@@ -43,18 +44,21 @@ const norseValkyrieDominionCharacters = [
     },
     "personalItem": {
       "name": "a physically rigid dark rune spear",
-      "itemRole": "ritual_item",
+      "itemRole": "weapon",
       "itemFamily": "spear",
       "description": "a physically rigid dark metal spear with visible shaft, sharp spearhead, and small carved rune plates",
-      "withItemPrompt": "holding a physically rigid dark rune spear vertically beside her body, shaft and spearhead visible, not crossing face, chest, waist, or silhouette",
+      "withItemPrompt": "holding a physically rigid dark rune spear as a readable weapon beside her body, shaft and spearhead visible, not crossing face, chest, waist, or silhouette",
       "noItemRemove": [
         "holding",
         "carrying",
         "presenting",
         "wielding",
-        "spear"
+        "gripping",
+        "spear",
+        "shaft",
+        "spearhead"
       ],
-      "itemGuard": "Keep the spear solid and readable; rune glow stays on the shaft or behind shoulders, not replacing the weapon."
+      "itemGuard": "Keep the spear solid and readable as a weapon; shaft and spearhead stay clear of face, chest, waist, hands, and silhouette, with rune glow on the shaft or behind shoulders only."
     },
     "promptProfile": {
       "preferredFraming": [
@@ -63,13 +67,17 @@ const norseValkyrieDominionCharacters = [
         "full_body"
       ],
       "preferredPoseCategories": [
-        "glamour_showcase",
+        "combat",
+        "active_attack",
+        "battle_presence",
+        "long_item",
         "standing",
         "ceremonial"
       ],
       "avoidPoseCategories": [
         "instrument",
-        "book_reading"
+        "book_reading",
+        "none_only"
       ],
       "figurePreset": "glamour_voluptuous"
     }

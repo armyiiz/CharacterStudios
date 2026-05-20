@@ -17,6 +17,7 @@ node tests/v11_1_y_pose_library_hard_cleanup_smoke_test.js
 node tests/v11_1_z_post_cleanup_pose_expansion_79_smoke_test.js
 node tests/v11_1_x2_kami_expansions_camera_glamour_pose_pack_smoke_test.js
 node tests/character_selection_unified_thai_faction_ui_smoke_test.js
+node tests/v12_0_3_final_policy_role_family_polish_smoke_test.js
 ```
 
 Also run `node --check` on every new or changed character data file.

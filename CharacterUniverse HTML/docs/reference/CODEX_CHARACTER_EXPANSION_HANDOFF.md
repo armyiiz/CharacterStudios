@@ -8,6 +8,21 @@ For field-level schema rules, also read:
 docs/reference/CHARACTER_DATA_SCHEMA.md
 ```
 
+## Latest Runtime Policy Baseline
+
+Read the latest status report before changing pose policy or item role/family behavior:
+
+```txt
+docs/reports/V12_0_3_FINAL_POLICY_ROLE_FAMILY_POLISH_REPORT.md
+```
+
+Current V12.0.3 policy notes:
+
+- Active runtime validation is 685 characters and 279 poses.
+- Female-designed glamour/editorial/body-showcase pose families are hidden from male characters by default.
+- Odin is `weapon / spear`.
+- Isis, Andjety, and Hatshepsut remain `ritual_item / staff`; do not convert Egyptian ritual staff/crook/ankh users to weapons without a new explicit user decision.
+
 ## Current Data Architecture
 
 The site is a plain-script web app. Character files are loaded by `index.html` before `app.js`.

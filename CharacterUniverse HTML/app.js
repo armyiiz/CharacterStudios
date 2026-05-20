@@ -58,8 +58,16 @@ function debounce(fn, delay = 180) { let t; return (...args) => { clearTimeout(t
 function scheduleRender() { clearTimeout(renderTimer); renderTimer = setTimeout(() => render(), 0); }
 function poseCacheKey(c, kind) { return `${kind}|${c && c.id}|${state.itemMode}|${activePoseLibrary().length}`; }
 const BASE_NEGATIVE = 'lowres, bad anatomy, bad hands, extra fingers, fused fingers, missing fingers, deformed limbs, extra limbs, cloned face, ugly, poorly drawn, blurry, out of frame, worst quality, low quality, watermark, signature, text';
+const COMPACT_BASE_NEGATIVE = 'lowres, bad anatomy, bad hands, extra fingers, fused fingers, missing fingers, deformed limbs, extra limbs, cloned face, ugly, blurry, out of frame, worst quality, watermark, signature, text';
 const SAME_CHARACTER_COMPLEXITY_LOCK_POSITIVE = 'Complexity lock: preserve the same character design and same visual complexity level. Change only the requested pose, framing, or camera angle. Do not upgrade the outfit, do not add extra ornaments, do not add extra armor layers, do not add extra spikes, horns, chains, feathers, roots, ribbons, particles, floating shards, background structures, or decorative effects. Keep details broad, grouped, clean, and readable. Maintain a clear silhouette. Background must stay soft, simple, and secondary. No visual escalation, no detail density increase, no ornate redesign.';
 const SAME_CHARACTER_COMPLEXITY_LOCK_NEGATIVE = 'detail escalation, visual escalation, ornate redesign, upgraded outfit, extra ornaments, extra armor layers, excessive decoration, excessive spikes, excessive thorns, excessive chains, excessive feathers, excessive ribbons, excessive roots, too many particles, floating shards, noisy micro-details, dense background, busy background, chaotic silhouette, cluttered costume, overdesigned armor, background merging with hair, item merging with body, unreadable silhouette';
+const COMPACT_CLUTTER_POLICY = {
+  outfit: 'preserve_identity_no_new_detail',
+  background: 'simple_secondary',
+  effects: 'soft_low_particle'
+};
+const COMPACT_SAME_CHARACTER_COMPLEXITY_LOCK_POSITIVE = 'Complexity lock: same design, lower clutter. No new embellishment, upgrades, or detail density. Keep identity jewelry, trims, and motifs; do not add new ones. Use clean large shapes, simple background, soft low-particle effects.';
+const COMPACT_SAME_CHARACTER_COMPLEXITY_LOCK_NEGATIVE = 'visual clutter, detail escalation, ornate upgrade, added ornaments, added trims, new decorative clutter, busy background, dense particles, noisy texture, chaotic silhouette, unreadable silhouette';
 const V12_CAMERA_GLAMOUR_PROMPT_PROFILE = {
   id: 'v12_camera_glamour_curvy_model',
   targetCategories: ['camera_driven_glamour', 'glamour_showcase', 'body_showcase'],
@@ -208,6 +216,26 @@ function schemaItemRole(c) { return (schemaItem(c).itemRole) || c.itemRole || 'n
 function schemaItemFamily(c) { return (schemaItem(c).itemFamily) || ''; }
 function schemaTags(c) { return (characterSchema(c) && Array.isArray(characterSchema(c).tags)) ? characterSchema(c).tags : []; }
 function schemaIdentityLock(c) { return Array.isArray(schemaCore(c).identityLock) ? schemaCore(c).identityLock : []; }
+function isWearableEquipment(c) {
+  const item = schemaItem(c);
+  const tags = schemaTags(c).map(tag => normalizeSpaces(tag).toLowerCase());
+  const prompt = normalizeSpaces(item.withItemPrompt || '');
+  const blob = normalize([
+    item.name,
+    item.description,
+    item.itemGuard,
+    item.itemFamily,
+    item.itemRole,
+    ...tags
+  ].join('\n'));
+  return (tags.includes('wearable') && schemaItemRole(c) !== 'none')
+    || /^wearing\b/i.test(prompt)
+    || /\b(?:wearable|worn|gauntlets?|gloves?|bracers?|boots?|armor|collar|necklace|belt|cloak|mask|crown|horns?|wings?|tail)\b/.test(blob);
+}
+function itemPromptClass(c) {
+  if (!schemaHasToggleItem(c)) return 'none';
+  return isWearableEquipment(c) ? 'wearable_equipment' : 'handheld_item';
+}
 function schemaHasToggleItem(c) {
   const item = schemaItem(c);
   return !!(item && item.itemRole && item.itemRole !== 'none' && item.itemFamily !== 'none' && (item.name || item.description || item.withItemPrompt));
@@ -1006,7 +1034,28 @@ function nonWeaponItemSafetyTerms(c) {
   if (role === 'document_item') terms.push('scroll used as weapon', 'book used as weapon');
   if (role === 'daily_item') terms.push('teacup attack', 'tray attack', 'apple weapon');
   if (role === 'accessory_item') terms.push('fan slash', 'mirror weapon', 'handbag weapon');
-  if (role === 'ritual_item') terms.push('ritual focus used for melee striking');
+  if (role === 'ritual_item') terms.push('ritual focus used for swinging, slashing, stabbing, striking, blocking, or melee weapon action');
+  if (role === 'tool_item') terms.push('tool used as battle weapon');
+  return uniqCommaTerms(terms);
+}
+function compactNonWeaponItemSafetyTerms(c) {
+  if (normalizedItemModeForCompatibility(state.itemMode) === 'none') return [];
+  const role = characterItemRoleForCompatibility(c);
+  if (role === 'weapon') return [];
+  const itemLabel = compactMainItemLabel(c);
+  const terms = [
+    `weaponized ${itemLabel}`,
+    'melee attack',
+    'item covering face',
+    'item covering chest',
+    'item merging with body',
+    'item merging with hand'
+  ];
+  if (role === 'instrument_item') terms.push('instrument used as melee weapon');
+  if (role === 'document_item') terms.push('document used as weapon');
+  if (role === 'daily_item') terms.push('daily item attack');
+  if (role === 'accessory_item') terms.push('accessory weapon attack');
+  if (role === 'ritual_item') terms.push('swinging', 'slashing', 'stabbing', 'striking', 'blocking');
   if (role === 'tool_item') terms.push('tool used as battle weapon');
   return uniqCommaTerms(terms);
 }
@@ -1020,12 +1069,28 @@ function nonWeaponItemPositiveGuard(c) {
     document_item: `Non-weapon item lock: ${item} is a readable document object; hold, read, write, or present it naturally, never use it for combat, blocking, aiming, or weapon-action posing.`,
     daily_item: `Non-weapon item lock: ${item} is a daily/lifestyle object; hold, carry, offer, sip, or display it naturally, never use it for combat, blocking, aiming, or weapon-action posing.`,
     accessory_item: `Non-weapon item lock: ${item} is an accessory/display item; wear, hold, or display it beside the body, never use it for combat, blocking, aiming, or weapon-action posing.`,
-    ritual_item: `Ritual item lock: ${item} is a ritual focus by default; present, raise, or channel through it ceremonially, never use it for melee striking unless explicitly marked as weapon.`,
+    ritual_item: `Ritual item lock: ${item} is a ritual focus by default; hold, present, raise, or channel through it ceremonially. Do not use it for melee impact, cutting, piercing, blocking, or attack actions unless explicitly marked as weapon.`,
     tool_item: `Tool item lock: ${item} is a practical tool by default; use it for professional or lifestyle action, never treat it as a battle weapon unless explicitly marked weapon.`,
     prop: `Prop lock: ${item} is a symbolic prop; hold or display it clearly, never use it for combat, blocking, aiming, or weapon-action posing.`,
     none: 'No-item lock: hands stay empty; do not invent weapons, props, books, cups, staffs, accessories, instruments, documents, or tools.'
   };
   return rolePhrases[role] || `Non-weapon item lock: ${item} is not marked as a weapon; hold or display it naturally and never use it for active attack.`;
+}
+function compactNonWeaponItemPositiveGuard(c) {
+  if (normalizedItemModeForCompatibility(state.itemMode) === 'none') return '';
+  const role = characterItemRoleForCompatibility(c);
+  if (role === 'weapon') return '';
+  const compactRolePhrases = {
+    instrument_item: 'Instrument item lock: use as music/signal only; never as a melee, blocking, or aiming weapon.',
+    document_item: 'Document item lock: hold, read, write, or present only; never use as a weapon.',
+    daily_item: 'Daily item lock: hold, carry, offer, sip, or display only; never use for combat.',
+    accessory_item: 'Accessory item lock: wear, hold, or display only; never use for combat.',
+    ritual_item: 'Ritual item lock: ceremonial only; hold, present, raise, or channel through it, never swing, strike, slash, stab, block, or use as a weapon.',
+    tool_item: 'Tool item lock: practical use only; never treat as a battle weapon unless explicitly marked weapon.',
+    prop: 'Prop lock: hold or display clearly; never use for combat.',
+    none: 'No-item lock: hands stay empty; do not invent handheld objects.'
+  };
+  return compactRolePhrases[role] || 'Non-weapon item lock: hold or display naturally; never use for active attack.';
 }
 
 const POSE_UI_CATEGORY_META = {
@@ -1299,6 +1364,52 @@ function isGlamourShowcasePose(p) {
     ['bust','waist_up','thigh_up','knee_up','seated_full_body'].includes(framing)
   );
 }
+function poseExplicitlyAllowsMaleGlamour(p) {
+  if (!p) return false;
+  const target = p.targetGender || p.targetGenders || p.genderTarget || null;
+  if (Array.isArray(target) && target.includes('male')) return true;
+  const fit = p.genderFit && p.genderFit.male;
+  return fit === 'allow' || fit === 'recommended';
+}
+function isFemaleGlamourEditorialPose(p) {
+  if (!p) return false;
+  const id = text(p.id).toUpperCase();
+  const uiCat = normalize(poseUiCategory(p));
+  const blob = normalize([
+    p.id,
+    p.title,
+    p.titleTH,
+    p.category,
+    p.subcategory,
+    p.uiCategory,
+    p.promptProfileId,
+    p.poseFamily,
+    p.glamourIntensity,
+    ...(Array.isArray(p.tags) ? p.tags : []),
+    ...(Array.isArray(p.collectionTags) ? p.collectionTags : []),
+    ...(Array.isArray(p.compatiblePresentationModes) ? p.compatiblePresentationModes : [])
+  ].join('\n'));
+  const femaleOnlyCategories = new Set([
+    'camera_driven_glamour',
+    'glamour_showcase',
+    'body_showcase',
+    'camera_driven_body_showcase',
+    'sensual_editorial',
+    'spicy_editorial',
+    'fashion_editorial',
+    'beauty_glamour',
+    'curvy_model',
+    'pinup_style'
+  ]);
+  if (femaleOnlyCategories.has(uiCat)) return true;
+  if (['V11X-CG-', 'V11X-BS-', 'PCA-CAM-', 'V11X-CGV2-', 'V11X2-CG-', 'SSE-'].some(prefix => id.startsWith(prefix))) return true;
+  return /\b(camera[_\s-]?driven[_\s-]?glamour|camera[_\s-]?driven[_\s-]?body[_\s-]?showcase|glamour[_\s-]?showcase|body[_\s-]?showcase|sensual[_\s-]?editorial|spicy[_\s-]?editorial|fashion[_\s-]?editorial|beauty[_\s-]?glamour|curvy[_\s-]?model|pinup[_\s-]?style|female[_\s-]?glamour|hourglass|waist[_\s-]?to[_\s-]?hip|s-curve|bust[_\s-]?friendly)\b/.test(blob);
+}
+function isPoseHiddenByGender(c, p) {
+  const gender = inferGender(c);
+  if (gender !== 'male') return false;
+  return isFemaleGlamourEditorialPose(p) && !poseExplicitlyAllowsMaleGlamour(p);
+}
 function poseMatchesCategoryFilter(p, categoryId) {
   if (!categoryId || categoryId === 'all') return true;
   if (categoryId === 'glamour_showcase') return isGlamourShowcasePose(p);
@@ -1308,6 +1419,7 @@ function poseMatchesCategoryFilter(p, categoryId) {
 function poseGenderFit(p, c) {
   const gender = inferGender(c);
   if (!p || !c || gender === 'unknown' || gender === 'other') return 'allow';
+  if (isPoseHiddenByGender(c, p)) return 'hide';
 
   const target = p.targetGender || p.targetGenders || p.genderTarget || null;
   if (Array.isArray(target) && target.length && !target.includes('all')) {
@@ -1664,14 +1776,6 @@ function ensureValidSelection() {
   const hasItem = schemaHasToggleItem(c) || c.mainItem || c.visualAnchor;
   if (!hasItem || role === 'none') state.itemMode = 'no_item';
 }
-function setUniverse(u) {
-  state.universe = u;
-  state.faction = 'all';
-  state.selectedCharId = null;
-  state.selectedPoseId = null;
-  state.step = 1;
-  render();
-}
 function setFilter(key, value) {
   state[key] = value;
   if (['faction','gender','role','searchChar'].includes(key)) resetCharacterPaging();
@@ -1701,6 +1805,15 @@ function selectCharacter(id) {
   state.role = 'all';
   state.searchChar = '';
   state.selectedCharId = String(id);
+
+  // Smart Item Mode Restoration:
+  // If the target character has a signature item, default their view to holding the item.
+  const role = target.itemRole || 'none';
+  const hasItem = schemaHasToggleItem(target) || target.mainItem || target.visualAnchor;
+  if (hasItem && role !== 'none') {
+    state.itemMode = 'with_item';
+  }
+
   resetPosePaging();
   state.poseView = 'recommended';
   state.poseCategory = 'all';
@@ -1710,7 +1823,6 @@ function selectCharacter(id) {
     if (typeof console !== 'undefined') {
       console.error('[Character Select] Selection failed after state update:', {
         id,
-        universe: state.universe,
         selectedCharId: state.selectedCharId
       });
     }
@@ -1942,11 +2054,20 @@ function renderPoses() {
       : (isFullDebugMode() ? 'กำลังดูคลัง compatible จาก pose ทั้งหมด' : 'คลังท่าที่ระบบคัดแล้วว่าเข้ากับตัวละครนี้'));
   document.getElementById('poseModeHint').textContent = lastPoseCompatibilityNotice ? `${lastPoseCompatibilityNotice} ${baseHint}` : baseHint;
   const poseListEl = document.getElementById('poseList');
-  poseListEl.innerHTML = visible.map(p => `<button class="pose-card ${String(p.id) === String(state.selectedPoseId) ? 'active':''}" type="button" data-action="select-pose" data-pose-id="${escapeHtml(p.id)}">
-    <div class="card-title">${escapeHtml(p.icon || '🎭')} ${escapeHtml(p.titleTH || p.title)}</div>
-    <div class="card-text">${escapeHtml(p.descriptionTH || p.description || p.prompt || '')}</div>
-    <div class="meta"><span class="badge">${escapeHtml(poseCategoryName(p))}</span>${p.framing ? `<span class="badge green">${escapeHtml(p.framing)}</span>` : ''}<span class="dot ${p.intensity === 'bold' ? 'bold':''}">${p.intensity === 'bold' ? 'Bold':'Safe'}</span></div>
-  </button>`).join('\n') || `<div class="summary-card"><h3>ไม่พบ pose</h3><p>ลองเปลี่ยนหมวดหรือล้างคำค้นหา ท่าทั้งหมดยังอยู่ในคลังค่ะ</p></div>`;
+  const favs = new Set((safeJsonParse(localStorage.getItem('arcadia_v9_favorite_poses'), []) || []).map(String));
+  poseListEl.innerHTML = visible.map(p => {
+    const isFav = favs.has(String(p.id));
+    return `<div class="pose-card-wrapper">
+      <button class="pose-card ${String(p.id) === String(state.selectedPoseId) ? 'active':''}" type="button" data-action="select-pose" data-pose-id="${escapeHtml(p.id)}" style="width: 100%;">
+        <div class="card-title">${escapeHtml(p.icon || '🎭')} ${escapeHtml(p.titleTH || p.title)}</div>
+        <div class="card-text">${escapeHtml(p.descriptionTH || p.description || p.prompt || '')}</div>
+        <div class="meta"><span class="badge">${escapeHtml(poseCategoryName(p))}</span>${p.framing ? `<span class="badge green">${escapeHtml(p.framing)}</span>` : ''}<span class="dot ${p.intensity === 'bold' ? 'bold':''}">${p.intensity === 'bold' ? 'Bold':'Safe'}</span></div>
+      </button>
+      <button class="fav-toggle-btn ${isFav ? 'active' : ''}" type="button" data-action="toggle-favorite" data-pose-id="${escapeHtml(p.id)}" style="position: absolute; top: 12px; right: 12px; background: transparent; border: 0; cursor: pointer; font-size: 18px; line-height: 1; z-index: 10;">
+        ${isFav ? '★' : '☆'}
+      </button>
+    </div>`;
+  }).join('\n') || `<div class="summary-card"><h3>ไม่พบ pose</h3><p>ลองเปลี่ยนหมวดหรือล้างคำค้นหา ท่าทั้งหมดยังอยู่ในคลังค่ะ</p></div>`;
   renderQuickCopyPanel();
   document.getElementById('poseLoadMoreWrap')?.remove();
   if (hasMore) {
@@ -2014,8 +2135,10 @@ function characterPromptForMode(c, p = selectedPose()) {
   if (schema) {
     const suppressItem = shouldSuppressItemForPose(c, p, state.itemMode);
     const passiveItem = shouldUsePassiveItemPlacement(c, p, state.itemMode);
+    const wearableNoItem = state.itemMode === 'no_item' && isWearableEquipment(c);
     const core = schemaCorePrompt(c, suppressItem) || c.n;
     const identity = schemaIdentityPrompt(c, suppressItem);
+    if (wearableNoItem) return dedupe([core, identity, 'Item classification: wearable_equipment. No separate handheld item is present; worn outfit equipment remains part of the character design.'].filter(Boolean)).join('\n');
     if (suppressItem) return dedupe([core, identity, 'No handheld personal item is present; keep the same character design and remove only the toggleable personal item.'].filter(Boolean)).join('\n');
     if (passiveItem) return dedupe([core, identity, `Passive personal item placement: ${passiveItemPlacementText(c)}`].filter(Boolean)).join('\n');
     const item = schemaHasToggleItem(c) ? schemaItemPrompt(c) : '';
@@ -2031,23 +2154,27 @@ function buildDebugPrompts(c, p, style) {
   const secondary = schemaCore(c).aura || c.secondaryEffect || 'subtle character-defining secondary effects';
   const noItemMode = state.itemMode === 'no_item';
   const suppressItem = shouldSuppressItemForPose(c, p, state.itemMode);
+  const noHandheldItemMode = noItemMode || suppressItem;
   const passiveItem = shouldUsePassiveItemPlacement(c, p, state.itemMode);
-  let sourcePosePrompt = (suppressItem || passiveItem) && p.noItemPrompt ? p.noItemPrompt : (p.prompt || '');
+  let sourcePosePrompt = (noHandheldItemMode || passiveItem) && p.noItemPrompt ? p.noItemPrompt : (p.prompt || '');
   let posePrompt = sourcePosePrompt
-    .replaceAll('[MAIN_ITEM]', suppressItem ? 'no handheld item' : mainItem)
+    .replaceAll('[MAIN_ITEM]', noHandheldItemMode ? 'no handheld item' : mainItem)
     .replaceAll('[SECONDARY_EFFECT]', secondary)
     .replaceAll('[CHARACTER]', c.n);
   if (suppressItem) {
     posePrompt = stripItemTermsFromSuppressedText(posePrompt, c)
       .replace(/holding no handheld item|presenting no handheld item|carrying no handheld item|with no handheld item\s*/gi, '');
   }
-  const itemInstruction = suppressItem
+  const classification = itemPromptClass(c);
+  const itemInstruction = noItemMode && classification === 'wearable_equipment'
+    ? 'Item Mode: no handheld item. Item classification: wearable_equipment. Keep hands free from separate weapons or props; worn outfit equipment may remain visible as part of the character design.'
+    : (suppressItem
     ? `Item Mode: no item. Use characterCore only. Ignore legacy handheld-item wording. ${p.noItemRule || 'Both hands are empty. Do not add handheld weapons, props, books, cups, staffs, tools, accessories, instruments, or documents.'}`
     : (passiveItem
       ? `Item Mode: with item, passive placement. Use only this personalItem: ${passiveItemPlacementText(c, p)} Do not use active attack, loose hovering, summoned, or floating weapon placement for this pose.`
       : (schemaHasToggleItem(c)
-        ? `Item Mode: with item. Use only this personalItem: ${resolveItemPlacementPrompt(c, p, state.itemMode) || mainItem}. ${schemaItemGuard(c)} ${p.itemPlacementRule || ''} Do not invent unrelated handheld props.`
-        : `Item Mode: no toggleable personal item for this character. Keep hands natural and do not invent unrelated handheld props.`));
+        ? `Item Mode: with item. Item classification: ${classification}. Use only this personalItem: ${resolveItemPlacementPrompt(c, p, state.itemMode) || mainItem}. ${schemaItemGuard(c)} ${p.itemPlacementRule || ''} Do not invent unrelated handheld props.`
+        : `Item Mode: no toggleable personal item for this character. Item classification: none. Keep hands natural and do not invent unrelated handheld props.`)));
   const blocks = [
     style.prompt,
     `V11 Character Schema: characterCore is permanent; personalItem is the only toggleable item; promptProfile controls pose priority.`,
@@ -2068,10 +2195,19 @@ function buildPrompts(c, p, style) {
   return buildCompactPrompts(c, poseForPrompt, style);
 }
 function compactStyleBlock(style) {
-  return COMPACT_STYLE_PROMPTS[(style && style.id) || ''] || COMPACT_STYLE_PROMPT;
+  const raw = COMPACT_STYLE_PROMPTS[(style && style.id) || ''] || COMPACT_STYLE_PROMPT;
+  return raw
+    .replace('semi-realistic anime illustration, Korean webtoon style, otome game character card art, polished digital painting', 'semi-realistic anime illustration, polished Korean webtoon otome character-card art')
+    .replace('semi-realistic anime illustration, polished Korean webtoon otome character-card art, elegant detailed face, glossy eyes, smooth voluminous hair, clean readable design', 'semi-realistic anime, polished Korean webtoon otome glamour card art, elegant face, glossy eyes, smooth hair, clean readable design')
+    .replace('clean readable design, cinematic dark luxury atmosphere', 'clean readable design, cinematic dark-luxury atmosphere')
+    .replace('cinematic dark-luxury atmosphere, dramatic moody lighting, shallow depth of field', 'minimal dark-luxury setting, subtle reflection, soft simple background')
+    .replace('cinematic daylight, vivid colors, atmospheric depth of field', 'cinematic daylight, vivid colors, depth of field')
+    .replace('soft painterly rendering, elegant detailed face', 'soft painterly rendering, elegant face')
+    .replace('breathtaking vivid sky, clear bright lighting, vibrant blue tones', 'vivid sky, clear bright lighting, vibrant blue tones');
 }
 function noItemSpecificTerms(c) {
   const item = schemaItem(c);
+  if (isWearableEquipment(c)) return [];
   const terms = [
     ...(Array.isArray(item.noItemRemove) ? item.noItemRemove : []),
     item.itemFamily,
@@ -2102,6 +2238,7 @@ function noItemSpecificTerms(c) {
 function suppressedItemAliasNegativeTerms(c) {
   const item = schemaItem(c);
   const terms = noItemSpecificTerms(c);
+  if (isWearableEquipment(c)) return terms;
   const blob = normalize([item.itemFamily, item.name, item.description, ...terms].join('\n'));
   if (/katana|sword|blade|sheath|scabbard/.test(blob)) {
     terms.push(
@@ -2134,7 +2271,7 @@ function posePrefersItemSuppression(pose) {
 function shouldSuppressItemForPose(character, pose, itemMode = state.itemMode) {
   if (!schemaHasToggleItem(character)) return false;
   const mode = normalizeSpaces(itemMode).toLowerCase();
-  if (normalizedItemModeForCompatibility(mode) === 'none') return true;
+  if (normalizedItemModeForCompatibility(mode) === 'none') return !isWearableEquipment(character);
   if (mode === 'auto_pose_safe' && posePrefersItemSuppression(pose)) return true;
   return false;
 }
@@ -2358,19 +2495,19 @@ function stripGenericNoItemLeakTerms(raw) {
 function stripItemTermsFromNoItemText(raw, c) {
   return stripGenericNoItemLeakTerms(stripItemTermsFromSuppressedText(raw, c));
 }
+function compactSentenceFromParts(parts) {
+  return uniqTextParts(parts.map(part => normalizeSpaces(part)).filter(Boolean)).join(', ');
+}
 function compactCharacterCoreBlock(c, noItemMode) {
   const core = schemaCore(c);
   const name = (characterSchema(c) && characterSchema(c).name) || c.n;
-  const pieces = [
-    core.face,
-    core.hair,
-    core.outfit,
-    core.body,
-    core.aura,
-    core.extra
-  ].map(piece => noItemMode ? stripItemTermsFromNoItemText(piece, c) : piece);
-  const cleanPieces = uniqTextParts(pieces).filter(Boolean);
-  return `Character: ${name}. ${cleanPieces.join(', ')}.`;
+  const clean = piece => noItemMode ? stripItemTermsFromNoItemText(piece, c) : piece;
+  const intro = compactSentenceFromParts([clean(core.face), clean(core.hair), clean(core.body)]);
+  const blocks = [`Character: ${name}${intro ? `, ${intro}` : ''}.`];
+  if (clean(core.outfit)) blocks.push(`Outfit: ${clean(core.outfit)}.`);
+  if (clean(core.aura)) blocks.push(`Aura: ${clean(core.aura)}.`);
+  if (clean(core.extra)) blocks.push(`Extra: ${clean(core.extra)}.`);
+  return blocks.join(' ');
 }
 function compactIdentitySpecifics(c, noItemMode) {
   const special = /mask|horn|wing|tail|halo|ear|scar|tattoo|eyepatch|glasses|veil|crown|headpiece|species|mark/i;
@@ -2381,9 +2518,7 @@ function compactIdentitySpecifics(c, noItemMode) {
 }
 function compactIdentityBlock(c, noItemMode) {
   if (!schemaIdentityLock(c).length) return '';
-  const specifics = compactIdentitySpecifics(c, noItemMode);
-  const extra = specifics.length ? ` Include locked specifics: ${specifics.join('; ')}.` : '';
-  return `Identity lock: preserve hairstyle, hair length, hair color, face, outfit/armor, body silhouette, aura, and species traits exactly. Changing or removing the item must not redesign the character.${extra}`;
+  return 'Identity lock: preserve same face, hairstyle, hair color, outfit design, body silhouette, aura, species traits, and role; no redesign or complexity increase.';
 }
 function isFemaleFigureContext(c, p) {
   if (inferGender(c) !== 'female') return false;
@@ -2403,18 +2538,18 @@ function compactFigureBlock(c, p) {
   const explicit = schemaProfile(c).figurePreset || c.figurePreset || c.bodySignature || c.bodyType || '';
   const femaleContext = isFemaleFigureContext(c, p);
   if (gender === 'male') {
-    return 'Figure emphasis: readable masculine silhouette and polished character-card appeal.';
+    return 'Figure emphasis: attractive adult masculine presence, confident posture, sharp readable silhouette, polished character-card appeal.';
   }
   if (gender === 'female' && (explicit === 'glamour_voluptuous' || femaleContext)) {
-    const parts = ['Figure emphasis: attractive adult feminine fantasy proportions, elegant waist, natural curves, readable silhouette, polished character-card appeal.'];
+    const parts = ['Figure emphasis: attractive adult feminine glamour, confident sensual posture, alluring gaze, elegant S-curve, waist-to-hip line, readable clothed curves.'];
     const meta = poseSilhouetteMeta(p);
     if (explicit === 'glamour_voluptuous' || isGlamourShowcasePose(p) || inferRole(c) === 'combat' || meta.highTorsoRotation) {
-      parts.push('Preserve clothed full-bust shape, fitted waist, soft curvy hips, and elegant hourglass line under the outfit.');
+      parts.push('Preserve clothed hourglass line and premium character-card allure.');
     }
     return parts.join(' ');
   }
   if (gender === 'female') {
-    return 'Figure emphasis: clean readable adult feminine silhouette and polished character-card appeal.';
+    return 'Figure emphasis: attractive adult feminine presence, graceful posture, readable clothed curves, polished character-card appeal.';
   }
   return 'Figure emphasis: clean readable character silhouette and polished character-card appeal.';
 }
@@ -2454,11 +2589,14 @@ function compactCameraGlamourRawPose(raw) {
 function compactPoseSentence(sentence) {
   let s = normalizeSpaces(sentence);
   if (!s) return '';
+  if (/^full-body tasteful fantasy glamour pose based on/i.test(s)) return '';
   if (/^if a selected object is included/i.test(s)) return '';
   if (/^preserve a full bust silhouette/i.test(s)) return '';
   if (/^fully clothed/i.test(s)) return '';
   if (/must not flatten|erase the waist|extreme side twisting|both arms crossing/i.test(s)) return '';
   s = s
+    .replace(/^use three-quarter standing orientation with one hip shifted and shoulders open toward the viewer\.?$/i, 'Three-quarter standing, one hip shifted, shoulders open toward viewer.')
+    .replace(/^one hand may rest near the waist or hip while the other stays relaxed or holds (?:the )?(?:selected object|item) beside the body\.?$/i, 'One hand near waist/hip; other relaxed or holding item beside body.')
     .replace(/,?\s*(?:without|while not|and never)\s+(?:covering|hiding|blocking)[^.]+/i, '')
     .replace(/,?\s*keeping the face[^.]+readable/i, '')
     .replace(/,?\s*keeping the face[^.]+clear/i, '')
@@ -2471,10 +2609,10 @@ function compactPoseSentence(sentence) {
 }
 function buildCompactPosePrompt(c, p, noItemMode) {
   const raw = rawPosePromptForMode(c, p, noItemMode);
-  const title = p.titleTH || p.title || 'Selected pose';
-  const sentences = uniqTextParts(raw.split(/(?<=[.!?])\s+|\n+|;\s*/).map(compactPoseSentence)).slice(0, 3);
+  const title = p.title || p.titleTH || 'Selected pose';
+  const sentences = uniqTextParts(raw.split(/(?<=[.!?])\s+|\n+|;\s*/).map(compactPoseSentence)).slice(0, 2);
   const intent = sentences.join(' ');
-  const poseIntro = `${title}, ${poseFramingText(p)} pose`;
+  const poseIntro = `${poseFramingText(p)} ${title}`;
   return normalizeSpaces(intent ? `${poseIntro}. ${intent}` : poseIntro + '.');
 }
 function compactItemPlacement(c) {
@@ -2493,6 +2631,9 @@ function compactItemPlacement(c) {
 }
 function compactItemBlock(c, noItemMode, passiveItem = false, pose = null) {
   if (noItemMode) {
+    if (isWearableEquipment(c)) {
+      return 'Item mode: no handheld item. Keep hands free from separate weapons or props. Worn outfit equipment may remain visible as part of the character design.';
+    }
     if (poseUiCategory(pose) === 'camera_driven_glamour' && pose && pose.noItemSafe === true && pose.requiresItem !== true && pose.itemActionType === 'none') {
       return schemaHasToggleItem(c)
         ? 'Item mode: hands empty; use characterCore only for this camera pose.'
@@ -2506,17 +2647,21 @@ function compactItemBlock(c, noItemMode, passiveItem = false, pose = null) {
     return 'Item mode: no toggleable personal item for this character. Keep hands natural and do not invent unrelated handheld props.';
   }
   if (passiveItem) {
-    return `Item mode: with item, passive placement. Use only this personal item: ${passiveItemPlacementText(c, pose)} Do not invent unrelated handheld props.`;
+    return `Item: ${passiveItemPlacementText(c, pose)} No unrelated handheld props.`;
   }
   const item = schemaItem(c);
   const itemText = item.description || item.name || schemaMainItemName(c);
+  const role = characterItemRoleForCompatibility(c);
   const resolvedPlacement = resolveItemPlacementPrompt(c, pose, state.itemMode);
+  const roleLock = role === 'ritual_item'
+    ? ' It is a ceremonial ritual focus, not a weapon.'
+    : (role && role !== 'weapon' ? ' It is not a weapon.' : '');
   if (resolvedPlacement) {
-    return `Item mode: with item. Use only this personal item: ${resolvedPlacement} Do not invent unrelated handheld props.`;
+    return `Item: ${resolvedPlacement}.${roleLock}`;
   }
   const placement = compactItemPlacement(c);
   const placementText = placement ? `, ${placement}` : '';
-  return `Item mode: with item. Use only this personal item: ${itemText}${placementText}. Do not invent unrelated handheld props.`;
+  return `Item: ${itemText}${placementText}.${roleLock}`;
 }
 function compactList(items) {
   const clean = items.filter(Boolean);
@@ -2524,33 +2669,41 @@ function compactList(items) {
   if (clean.length === 2) return clean.join(' and ');
   return `${clean.slice(0, -1).join(', ')}, and ${clean[clean.length - 1]}`;
 }
+function compactMainItemLabel(c) {
+  const family = characterItemFamilyForCompatibility(c);
+  const name = normalize(schemaMainItemName(c) || schemaItem(c).name || '');
+  if (family === 'staff' || /\bstaff\b/.test(name)) return 'staff';
+  if (family === 'bow' || /\bbow\b|\barrow\b/.test(name)) return 'bow';
+  if (family === 'gun' || /\bgun\b|\bpistol\b/.test(name)) return 'gun';
+  if (family === 'rifle' || /\brifle\b/.test(name)) return 'rifle';
+  if (family === 'large_weapon' || /\bsword\b|\bblade\b|\baxe\b|\bspear\b/.test(name)) return 'weapon';
+  if (family === 'instrument' || /\binstrument\b|\bbaton\b|\bflute\b|\bharp\b/.test(name)) return 'instrument';
+  if (family === 'tool' || /\btool\b|\bsyringe\b|\bbrush\b/.test(name)) return 'tool';
+  return 'item';
+}
 function hasEffectSafetyContext(c, p) {
   const tags = effectiveRiskTagsForMode(c);
   return tags.has('aura_effect') || tags.has('floating_props') || tags.has('thread_effect') || !!(schemaCore(c).aura || c.secondaryEffect) || /magic|void|dimension|curse|blood|time|memory|spark|aura|halo|effect/i.test(p && p.prompt || '');
 }
 function compactGuardBlock(c, p, noItemMode, passiveItem = false) {
   const tags = effectiveRiskTagsForMode(c);
-  const withItem = !noItemMode && schemaHasToggleItem(c);
+  const wearableVisible = noItemMode && isWearableEquipment(c);
+  const withItem = (!noItemMode && schemaHasToggleItem(c)) || wearableVisible;
   const hasEffects = hasEffectSafetyContext(c, p);
-  const readable = ['face', 'hair', 'upper body', 'hands', 'waist line', 'silhouette'];
-  if (hasEffects) readable.push('effects');
-  if (withItem) readable.push('main item');
-  const blockers = noItemMode ? ['arms', 'foreground elements'] : ['weapons', 'props', 'arms'];
-  if (hasEffects) blockers.push('effects');
+  const itemLabel = wearableVisible ? 'worn equipment' : compactMainItemLabel(c);
+  const readable = ['face', 'hands', 'chest silhouette', 'waist curve', 'body outline'];
+  if (withItem) readable.push(itemLabel);
   const parts = [
-    `Guard: keep ${compactList(readable)} readable.`,
-    `Do not let ${compactList(blockers)} cover the face, chest silhouette, waist, or body outline.`
+    `Composition guard: keep ${compactList(readable)} readable; nothing covers face, torso, waist, or outline.`
   ];
-  if (withItem) parts.push('Keep physical items solid, continuous, and separated from the body.');
+  if (withItem) parts.push(`${itemLabel} stays solid, continuous, separated from body.`);
   if (passiveItem) parts.push('Passive weapon placement lock: weapon stays attached to the body or scabbard/strap; never floating, inverted, summoned, spectral, or detached beside the body.');
   if (withItem && tags.has('ranged_weapon')) parts.push('Ranged items stay lowered, side-held, or beside the body unless the selected pose explicitly requires aiming.');
   if (hasEffects) {
     parts.push(withItem
-      ? 'Effects stay behind or beside the character and never replace hands, face, hairline, silhouette, or item.'
-      : 'Effects stay behind or beside the character and never replace hands, face, hairline, silhouette, or body outline.');
+      ? `Effects stay behind/beside character, never replacing hands, face, silhouette, or ${itemLabel}.`
+      : 'Effects stay behind/beside character, never replacing hands, face, silhouette, or body outline.');
   }
-  const nonWeaponGuard = nonWeaponItemPositiveGuard(c);
-  if (nonWeaponGuard) parts.push(nonWeaponGuard);
   const detailLimiter = detailClutterLimiterBlock(c);
   if (detailLimiter) parts.push(detailLimiter);
   return parts.join(' ');
@@ -2558,17 +2711,19 @@ function compactGuardBlock(c, p, noItemMode, passiveItem = false) {
 function buildCompactPrompts(c, p, style) {
   const noItemMode = state.itemMode === 'no_item';
   const suppressItem = shouldSuppressItemForPose(c, p, state.itemMode);
+  const preserveWearable = noItemMode && isWearableEquipment(c);
+  const stripCharacterItem = suppressItem && !preserveWearable;
+  const noHandheldItemMode = noItemMode || suppressItem;
   const passiveItem = shouldUsePassiveItemPlacement(c, p, state.itemMode);
   const blocks = [
     compactStyleBlock(style),
-    compactCharacterCoreBlock(c, noItemMode || suppressItem),
-    compactIdentityBlock(c, noItemMode || suppressItem),
+    compactCharacterCoreBlock(c, stripCharacterItem),
+    compactIdentityBlock(c, stripCharacterItem),
     compactFigureBlock(c, p),
-    `Selected pose: ${buildCompactPosePrompt(c, p, noItemMode || suppressItem || passiveItem)}`,
-    compactItemBlock(c, noItemMode || suppressItem, passiveItem, p),
-    compactGuardBlock(c, p, noItemMode || suppressItem, passiveItem),
-    SAME_CHARACTER_COMPLEXITY_LOCK_POSITIVE,
-    'Global quality: polished fully clothed fantasy character-card composition, readable anatomy, clean large shapes, no cluttered micro-detail noise.'
+    `Selected pose: ${buildCompactPosePrompt(c, p, noHandheldItemMode || passiveItem)}`,
+    compactItemBlock(c, noHandheldItemMode, passiveItem, p),
+    compactGuardBlock(c, p, noHandheldItemMode, passiveItem),
+    COMPACT_SAME_CHARACTER_COMPLEXITY_LOCK_POSITIVE
   ];
   return { positive: compactJoinPromptBlocks(blocks), negative: buildCompactNegative(c, p) };
 }
@@ -2584,7 +2739,11 @@ function riskGuardBlocks(c, p) {
   if (tags.has('floating_props') || tags.has('aura_effect') || /magic|void|dimension|curse|blood|time|memory/.test([...tags].join('\n'))) blocks.push('Effect safety: effects stay behind or beside the character and never replace the physical item, hands, face, hairline, or body silhouette.');
   const preset = figurePreset(c);
   if (preset) blocks.push('Body-silhouette safety: pose guard, item guard, weapon guard, and effect guard must not erase the character figure signature; keep the clothed full-bust shape, fitted waist, curvy hips, and elegant feminine silhouette readable.');
-  if (state.itemMode === 'no_item') blocks.push('No-item showcase mode: ignore the character default handheld item and do not apply bow/gun/large-weapon pose restrictions; no unwanted weapon, prop, tool, cup, book, staff, or accessory in the hands.');
+  if (state.itemMode === 'no_item') {
+    blocks.push(isWearableEquipment(c)
+      ? 'No-handheld showcase mode: hands stay free from separate carried weapons or props; worn outfit equipment remains part of the character design.'
+      : 'No-item showcase mode: ignore the character default handheld item and do not apply bow/gun/large-weapon pose restrictions; no unwanted weapon, prop, tool, cup, book, staff, or accessory in the hands.');
+  }
   const nonWeaponGuard = nonWeaponItemPositiveGuard(c);
   if (nonWeaponGuard) blocks.push(nonWeaponGuard);
   const detailLimiter = detailClutterLimiterBlock(c);
@@ -2617,20 +2776,26 @@ function buildCompactNegative(c, p) {
     ? p.compactNegativeAdditions
     : (poseUiCategory(p) === 'camera_driven_glamour' ? V12_CAMERA_GLAMOUR_PROMPT_PROFILE.compactNegativeAdditions : ((p && p.negativeAdditions) || []));
   const terms = [
-    BASE_NEGATIVE,
-    SAME_CHARACTER_COMPLEXITY_LOCK_NEGATIVE,
+    COMPACT_BASE_NEGATIVE,
+    COMPACT_SAME_CHARACTER_COMPLEXITY_LOCK_NEGATIVE,
     ...poseNegativeAdditions,
     ...extraWeaponSuppressionTerms(c, p),
-    ...nonWeaponItemSafetyTerms(c)
+    ...compactNonWeaponItemSafetyTerms(c)
   ];
   if (isFemaleFigureContext(c, p) || figurePreset(c)) {
-    terms.push('flattened chest, boxy torso, erased waist curve, arms hiding bust silhouette, shapeless waist, overly flat straight body, body hidden by arms, torso flattened by rotation');
+    const figureTerms = characterItemRoleForCompatibility(c) === 'weapon'
+      ? 'flattened chest, boxy torso, erased waist curve, arms hiding bust silhouette, weapon covering chest silhouette, shapeless waist, body hidden by arms'
+      : 'flattened chest, boxy torso, erased waist curve, arms hiding bust silhouette, shapeless waist, body hidden by arms';
+    terms.push(figureTerms);
   }
   if (state.itemMode !== 'no_item' && (hasLargeItemRisk(tags) || schemaItemRole(c) === 'weapon')) {
-    terms.push('weightless oversized item, object piercing neck, object piercing torso, object crossing throat, giant item covering face, weapon covering chest silhouette');
+    const largeItemTerm = schemaItemRole(c) === 'weapon'
+      ? 'weightless weapon, weapon covering chest silhouette, item piercing body, giant item covering face'
+      : 'broken item, floating item, item piercing body, giant item covering face';
+    terms.push(largeItemTerm);
   }
   if (hasEffectSafetyContext(c, p)) {
-    terms.push('effects covering face, aura replacing item, floating clutter over hands');
+    terms.push('effects covering face, aura replacing item');
   }
   if (isCloseupPose(p)) {
     terms.push('hand covering eyes, hand covering mouth, item touching lips, face obscured');
@@ -2642,7 +2807,14 @@ function buildCompactNegative(c, p) {
   if (shouldUsePassiveItemPlacement(c, p, state.itemMode)) {
     terms.push(passiveItemPlacementNegativeTerms(c).join(', '));
   }
-  return uniqCommaTerms(terms).join(', ');
+  const compactTerms = uniqCommaTerms(terms);
+  if (characterItemRoleForCompatibility(c) !== 'weapon') {
+    return compactTerms
+      .map(term => term === 'weapon covering chest silhouette' ? 'item covering chest' : term)
+      .filter((term, index, all) => all.indexOf(term) === index)
+      .join(', ');
+  }
+  return compactTerms.join(', ');
 }
 function promptWarnings(c, p) {
   const tags = effectiveRiskTagsForMode(c);
@@ -2821,6 +2993,19 @@ function handleStaticControlClick(event) {
   event.preventDefault();
   const action = control.dataset.action;
   switch (action) {
+    case 'toggle-favorite':
+      const poseId = String(control.dataset.poseId);
+      let favorites = safeJsonParse(localStorage.getItem('arcadia_v9_favorite_poses'), []) || [];
+      if (favorites.includes(poseId)) {
+        favorites = favorites.filter(id => id !== poseId);
+        showToast('ลบออกจากรายการโปรดแล้ว');
+      } else {
+        favorites.push(poseId);
+        showToast('เพิ่มเข้าในรายการโปรดแล้ว');
+      }
+      localStorage.setItem('arcadia_v9_favorite_poses', JSON.stringify(favorites));
+      renderPoses();
+      break;
     case 'select-character':
       selectCharacter(control.dataset.characterId);
       break;
@@ -2835,9 +3020,6 @@ function handleStaticControlClick(event) {
       break;
     case 'clear-character-filters':
       clearCharacterFilters();
-      break;
-    case 'set-universe':
-      setUniverse(Number(control.dataset.universe));
       break;
     case 'set-pose-view':
       setPoseView(control.dataset.poseView);
@@ -2907,7 +3089,6 @@ function init() {
   bindStaticControls();
   loadState();
   if (!activeStyles.some(s => s.id === state.styleId)) state.styleId = activeStyles[0].id;
-  state.universe = 0;
   if (!state.faction || typeof state.faction !== 'string') state.faction = 'all';
   if (!PROMPT_MODES.has(state.promptMode)) state.promptMode = 'compact';
   render();
@@ -2917,7 +3098,6 @@ if (typeof window !== "undefined") {
   window.selectCharacter = selectCharacter;
   window.selectPose = selectPose;
   window.goStep = goStep;
-  window.setUniverse = setUniverse;
   window.setFilter = setFilter;
   window.setFilterDebounced = setFilterDebounced;
   window.clearCharacterFilters = clearCharacterFilters;

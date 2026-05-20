@@ -31,6 +31,17 @@ Current modular character additions include:
 - `data/characters/characters_solar_necropolis_egypt_expansion_2.js`
 - `data/characters/characters_heavenly_kami_war_court.js`
 
+## Latest V12 Status
+
+V12.0.3 is the current final policy / role-family polish baseline:
+
+- Active runtime validation: 685 characters, 279 poses, duplicate character IDs/names 0, duplicate pose IDs 0.
+- Female-designed glamour/editorial/body-showcase pose families are hidden from male characters by default.
+- Odin is now `weapon / spear`.
+- Isis, Andjety, and Hatshepsut remain `ritual_item / staff` with non-weapon ceremonial wording.
+
+See `docs/reports/V12_0_3_FINAL_POLICY_ROLE_FAMILY_POLISH_REPORT.md`.
+
 ## V11.1.5 Egypt + Heavenly Kami Integration
 
 V11.1.5 adds 150 modular characters and 24 weapon-only active attack poses:

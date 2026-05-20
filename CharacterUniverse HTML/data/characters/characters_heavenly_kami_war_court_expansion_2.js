@@ -39,7 +39,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Nine-Tailed Foxfire War Courtesan",
         "luxury court kimono with fitted inner bodice, lacquer battle accents, and clean foxfire fan-duelist silhouette",
         "adult feminine ultra-glamorous curvy courtesan silhouette, full bust, narrow fitted waist, elegant hips, seductive queen posture",
-        "pair of physically solid gold-ribbed war fans with foxfire inlay",
         "nine foxfire tails arranged as a clean halo behind the body"
       ]
     },
@@ -60,7 +59,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "sword",
         "katana",
         "spear",
-        "fan",
         "staff",
         "bow",
         "dagger",
@@ -124,7 +122,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Yamata-no-Orochi",
         "Eightfold Serpent Empress",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "massive physically rigid serpent-scale nodachi",
         "eight faint serpent-shadow crests behind her, not extra heads"
       ]
     },
@@ -211,7 +208,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Bell-Burning Serpent Bride",
         "bridal kimono armor with molten bell ornaments and clean flame-serpent motif",
         "adult feminine curvy bridal-war silhouette, full bust, fitted waist, elegant hip line, tragic duelist posture",
-        "physically solid crimson naginata with small bell charm below the blade",
         "bell-shaped serpent flame behind the weapon"
       ]
     },
@@ -375,7 +371,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Ame-onna",
         "Rain Veil Spear Maiden",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid blue-black rain spear with bronze ring near the tip",
         "thin rain lines behind her body, no heavy water clutter"
       ]
     },
@@ -395,7 +390,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "blade",
         "sword",
         "katana",
-        "spear",
         "fan",
         "staff",
         "bow",
@@ -462,7 +456,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Crimson Mask Vengeance Avenger",
         "fitted torn ceremonial robe with mask motif placed at shoulder or hip, not covering the face",
         "adult feminine dramatic curvy assassin silhouette, full bust, sharp waist, long readable sleeves, theatrical vengeance posture",
-        "pair of physically solid black short blades with red mask-shaped guards",
         "red hannya mask halo behind one shoulder"
       ]
     },
@@ -486,7 +479,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "fan",
         "staff",
         "bow",
-        "dagger",
         "shield"
       ],
       "itemGuard": "Keep pair of physically solid black short blades with red mask-shaped guards physically solid, readable, and clearly separated from aura effects, hair, clothing, face, hands, chest line, waist, hips, and body silhouette."
@@ -552,7 +544,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "River-Abyss Serpent Executioner",
         "wet-silk river armor with clean aquatic executioner lines and readable body curve",
         "adult feminine serpentine S-curve posture, full bust, fitted waist, curvy hips, long leg line, predatory gaze",
-        "physically solid river kusarigama with one visible chain arc",
         "low dark river mist behind the legs, never covering hands, face, or body line"
       ]
     },
@@ -636,7 +627,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Jorogumo",
         "Spider-Thread Blade Matron",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid silver stiletto dagger and red thread spool",
         "red thread web arc behind body, not binding fingers"
       ]
     },
@@ -660,7 +650,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "fan",
         "staff",
         "bow",
-        "dagger",
         "shield"
       ],
       "itemGuard": "Keep physically solid silver stiletto dagger and red thread spool physically solid, readable, and clearly separated from aura effects. Do not turn it into smoke, light trails, floating props, or abstract magic."
@@ -718,7 +707,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Oiwa",
         "Vengeful Ghost Lantern Blade",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically rigid pale ghost katana with simple paper talisman on the hilt",
         "pale spirit lantern glow behind her shoulder"
       ]
     },
@@ -737,7 +725,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "katana",
         "blade",
         "sword",
-        "katana",
         "spear",
         "fan",
         "staff",
@@ -800,7 +787,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Rokurokubi",
         "Long-Neck Night Duelist",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid short wakizashi with black cord handle",
         "elegant long-neck silhouette only, no horror distortion"
       ]
     },
@@ -818,7 +804,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "brandishing",
         "sword",
         "blade",
-        "sword",
         "katana",
         "spear",
         "fan",
@@ -882,7 +867,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Futakuchi-onna",
         "Hidden-Mouth Hair Blade",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid hairpin dagger held clearly in one hand",
         "hair forms one clean arc behind her"
       ]
     },
@@ -906,7 +890,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "fan",
         "staff",
         "bow",
-        "dagger",
         "shield"
       ],
       "itemGuard": "Keep physically solid hairpin dagger held clearly in one hand physically solid, readable, and clearly separated from aura effects. Do not turn it into smoke, light trails, floating props, or abstract magic."
@@ -964,7 +947,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Tsurara-onna",
         "Icicle Mirror Knight",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid clear ice rapier with visible silver guard",
         "thin frost rim light behind silhouette"
       ]
     },
@@ -1046,7 +1028,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Abe no Seimei",
         "Star-Seal Onmyoji General",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid white onmyoji folding fan painted with a black pentagram seal",
         "five-point star seal circle behind her, not replacing the fan"
       ]
     },
@@ -1067,7 +1048,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "sword",
         "katana",
         "spear",
-        "fan",
         "staff",
         "bow",
         "dagger",
@@ -1125,7 +1105,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Doman Ashiya",
         "Cursed Seal Rival Sorceress",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically rigid black ritual staff with a bronze bell ring",
         "violet curse seals arranged in one halo arc"
       ]
     },
@@ -1147,7 +1126,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "katana",
         "spear",
         "fan",
-        "staff",
         "bow",
         "dagger",
         "shield"
@@ -1207,7 +1185,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Kamo no Yasunori",
         "Imperial Star Diviner",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid folded star chart scroll held near waist level",
         "small gold star seals behind her shoulders"
       ]
     },
@@ -1286,7 +1263,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Kibi no Makibi",
         "Scholar of Foreign Spells",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically rigid straight ceremonial sword with red tassel",
         "paper talisman arcs behind blade only"
       ]
     },
@@ -1304,7 +1280,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "brandishing",
         "sword",
         "blade",
-        "sword",
         "katana",
         "spear",
         "fan",
@@ -1368,7 +1343,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Murasaki Shikibu",
         "Tale-Binding Exorcist",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid purple-bound story grimoire",
         "ink calligraphy strips float in one orderly arc"
       ]
     },
@@ -1448,7 +1422,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Sei Shonagon",
         "Pillow-Book Talisman Duelist",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "small physically solid lacquer notebook with ribbon bookmark",
         "tiny list talismans behind her, not cluttering hands"
       ]
     },
@@ -1528,7 +1501,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Izumi Shikibu",
         "Love-Poem Flame Priestess",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid red calligraphy brush with gold cap",
         "heart-shaped flame seal behind brush, subtle"
       ]
     },
@@ -1607,7 +1579,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Ono no Komachi",
         "Beauty-Wraith Blade Poet",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically rigid violet-flower katana with plain scabbard",
         "violet petals in one controlled diagonal trail"
       ]
     },
@@ -1626,7 +1597,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "katana",
         "blade",
         "sword",
-        "katana",
         "spear",
         "fan",
         "staff",
@@ -1689,7 +1659,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "En no Ozunu",
         "Mountain Ascetic Chain Caster",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid iron prayer-chain with one visible loop",
         "mountain prayer seals behind her body"
       ]
     },
@@ -1770,7 +1739,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Kukai",
         "Vajra Spellblade Saint",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid golden vajra dagger with clear handle and blade",
         "simple mandala ring behind shoulders"
       ]
     },
@@ -1794,7 +1762,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "fan",
         "staff",
         "bow",
-        "dagger",
         "shield"
       ],
       "itemGuard": "Keep physically solid golden vajra dagger with clear handle and blade physically solid, readable, and clearly separated from aura effects. Do not turn it into smoke, light trails, floating props, or abstract magic."
@@ -1851,7 +1818,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Inari Okami",
         "Fox Shrine Spear Queen",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid white shrine spear with small red torii charm",
         "two clean foxfire wisps behind spear"
       ]
     },
@@ -1871,7 +1837,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "blade",
         "sword",
         "katana",
-        "spear",
         "fan",
         "staff",
         "bow",
@@ -1937,7 +1902,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Golden Granary Guardian",
         "fitted lacquer shrine armor with rice-gold waistguard and clean harvest guardian silhouette",
         "adult feminine curvy hourglass line, full bust, fitted waist, strong thighs, sturdy abundance-defender stance",
-        "physically solid gold-edged naginata with rice tassel",
         "restrained rice-grain halo behind the lower back and rear silhouette, not covering the waistline"
       ]
     },
@@ -2025,7 +1989,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Battlefield Pathfinder Vanguard",
         "travel cloak over fitted shrine armor with wind-road ribbons kept behind the silhouette",
         "adult feminine voluptuous athletic scout-commander stance, long shapely legs, fitted waist, confident road-opening body language",
-        "physically solid red-lacquer tengu spear with road-marker charms",
         "directional road-marker light sigils behind her body"
       ]
     },
@@ -2045,7 +2008,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "blade",
         "sword",
         "katana",
-        "spear",
         "fan",
         "staff",
         "bow",
@@ -2108,7 +2070,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Ame-no-Uzume",
         "Dawn Dance Battle Muse",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "pair of physically solid red-and-gold dance war fans",
         "sunrise ribbon arcs behind fans"
       ]
     },
@@ -2129,7 +2090,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "sword",
         "katana",
         "spear",
-        "fan",
         "staff",
         "bow",
         "dagger",
@@ -2275,7 +2235,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Iwanagahime",
         "Stone Immortality Shieldbearer",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid round stone shield with bronze rim",
         "small stone ring behind shield"
       ]
     },
@@ -2299,8 +2258,7 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "fan",
         "staff",
         "bow",
-        "dagger",
-        "shield"
+        "dagger"
       ],
       "itemGuard": "Keep physically solid round stone shield with bronze rim physically solid, readable, and clearly separated from aura effects. Do not turn it into smoke, light trails, floating props, or abstract magic."
     },
@@ -2356,7 +2314,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Kuraokami",
         "Dragon Rain Blade Guardian",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically rigid blue dragon-crest tachi",
         "rain dragon silhouette only as back halo"
       ]
     },
@@ -2374,7 +2331,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "brandishing",
         "sword",
         "blade",
-        "sword",
         "katana",
         "spear",
         "fan",
@@ -2437,7 +2393,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Toyotama-hime",
         "Sea Palace Pearl Spear",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid pearl-inlaid short trident",
         "tidal crescent behind trident, clean and small"
       ]
     },
@@ -2518,7 +2473,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Otohime",
         "Dragon Palace War Dancer",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "pair of physically solid pearl war fans with wave pattern",
         "wave light rings behind fans only"
       ]
     },
@@ -2539,7 +2493,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "sword",
         "katana",
         "spear",
-        "fan",
         "staff",
         "bow",
         "dagger",
@@ -2599,7 +2552,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Jingu Kogo",
         "Imperial War Empress",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid imperial spear with red tassel",
         "gold imperial crest behind shoulder"
       ]
     },
@@ -2619,7 +2571,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "blade",
         "sword",
         "katana",
-        "spear",
         "fan",
         "staff",
         "bow",
@@ -2680,7 +2631,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Muramasa-hime",
         "Cursed Katana Bride",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically rigid black-red cursed katana with visible hamon line",
         "thin red curse steam behind blade, not covering hands"
       ]
     },
@@ -2699,7 +2649,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "katana",
         "blade",
         "sword",
-        "katana",
         "spear",
         "fan",
         "staff",
@@ -2761,7 +2710,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Masamune-hime",
         "Pure Steel Saint Blade",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically rigid silver-white katana with blue silk handle",
         "clear blue steel aura behind blade"
       ]
     },
@@ -2780,7 +2728,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "katana",
         "blade",
         "sword",
-        "katana",
         "spear",
         "fan",
         "staff",
@@ -2842,7 +2789,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Kogarasu Maru",
         "Little Crow Tachi Maiden",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid black-feather tachi with curved blade",
         "crow feather halo behind shoulders, limited"
       ]
     },
@@ -2923,7 +2869,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Onimaru Kunitsuna",
         "Demon-Cutting Royal Blade",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically rigid demon-cutting katana with red cord wrap",
         "single oni horn crest behind hilt"
       ]
     },
@@ -2942,7 +2887,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "katana",
         "blade",
         "sword",
-        "katana",
         "spear",
         "fan",
         "staff",
@@ -3004,7 +2948,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Dojigiri Yasutsuna",
         "Oni-Slayer Heirloom Blade",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid gold-black oni-slayer katana",
         "small broken oni mask behind blade"
       ]
     },
@@ -3023,7 +2966,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "katana",
         "blade",
         "sword",
-        "katana",
         "spear",
         "fan",
         "staff",
@@ -3085,7 +3027,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Heshikiri Hasebe",
         "Pressure-Cut Assassin Blade",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically rigid short black wakizashi with plain scabbard",
         "dark pressure line behind weapon only"
       ]
     },
@@ -3166,7 +3107,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Tomoe Gozen",
         "Crimson Naginata General",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid crimson-bladed naginata",
         "red battlefield banner behind her body"
       ]
     },
@@ -3247,7 +3187,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Hangaku Gozen",
         "Fortress Bow Commander",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid black yumi bow with white grip",
         "single arrow light line behind bow"
       ]
     },
@@ -3270,7 +3209,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "spear",
         "fan",
         "staff",
-        "bow",
         "dagger",
         "shield"
       ],
@@ -3328,7 +3266,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Nakano Takeko",
         "Aizu Naginata Saint",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid long naginata with blue cloth wrap",
         "soft blue banner light behind weapon"
       ]
     },
@@ -3409,7 +3346,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Mochizuki Chiyome",
         "Kunoichi Shrine Spy",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "pair of physically solid kunai daggers with red cord rings",
         "subtle shrine shadow seals behind hands"
       ]
     },
@@ -3433,7 +3369,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "fan",
         "staff",
         "bow",
-        "dagger",
         "shield"
       ],
       "itemGuard": "Keep pair of physically solid kunai daggers with red cord rings physically solid, readable, and clearly separated from aura effects. Do not turn it into smoke, light trails, floating props, or abstract magic."
@@ -3490,7 +3425,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Momotaro-hime",
         "Peach Banner Demon Slayer",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically rigid peach-crest katana with red scabbard",
         "peach banner behind body, no animal companions in first image"
       ]
     },
@@ -3508,7 +3442,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "brandishing",
         "sword",
         "blade",
-        "sword",
         "katana",
         "spear",
         "fan",
@@ -3571,7 +3504,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Urashima Taro-hime",
         "Tide Box Guardian",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid sea-blue spear with small box charm tied near grip",
         "small sea-box glow behind waist"
       ]
     },
@@ -3591,7 +3523,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "blade",
         "sword",
         "katana",
-        "spear",
         "fan",
         "staff",
         "bow",
@@ -3652,7 +3583,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Kintaro-hime",
         "Golden Axe Wild Child",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid gold-edged battle axe",
         "bear-paw crest behind shoulders, no bear body"
       ]
     },
@@ -3733,7 +3663,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Issun-boshi-hime",
         "Needle Blade Tiny Heroine",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid needle-thin rapier with bowl-shaped small shield",
         "small bowl shield held clearly, no size distortion"
       ]
     },
@@ -3814,7 +3743,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Taketori-hime",
         "Moon Bamboo Blade Princess",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically rigid pale bamboo-moon sword",
         "crescent bamboo halo behind body"
       ]
     },
@@ -3832,7 +3760,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "brandishing",
         "sword",
         "blade",
-        "sword",
         "katana",
         "spear",
         "fan",
@@ -3895,7 +3822,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Hanasaka-hime",
         "Ash Blossom Spear Saint",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid ash-wood spear with sakura tassel",
         "ash-to-blossom arc behind spear, controlled"
       ]
     },
@@ -3915,7 +3841,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "blade",
         "sword",
         "katana",
-        "spear",
         "fan",
         "staff",
         "bow",
@@ -3976,7 +3901,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Bunbuku Chagama",
         "Tanuki Kettle Shield Trickster",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid bronze kettle-shaped shield and short baton",
         "tanuki leaf ring behind shield"
       ]
     },
@@ -4000,8 +3924,7 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "fan",
         "staff",
         "bow",
-        "dagger",
-        "shield"
+        "dagger"
       ],
       "itemGuard": "Keep physically solid bronze kettle-shaped shield and short baton physically solid, readable, and clearly separated from aura effects. Do not turn it into smoke, light trails, floating props, or abstract magic."
     },
@@ -4057,7 +3980,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "Kasa-obake",
         "Umbrella Spear Yokai",
         "dark luxury shrine-war court outfit with lacquer armor plates, elegant kimono layers, clean gold trims, fitted waist, and readable battle silhouette",
-        "physically solid red oil-paper umbrella spear with metal tip",
         "single umbrella eye motif on canopy only"
       ]
     },
@@ -4077,7 +3999,6 @@ const heavenlyKamiWarCourtExpansion2Characters = [
         "blade",
         "sword",
         "katana",
-        "spear",
         "fan",
         "staff",
         "bow",

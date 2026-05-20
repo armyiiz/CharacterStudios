@@ -58,8 +58,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "green-gold eyes; bright dawn smile",
         "short black hair with gold scarab hairpin",
         "black, turquoise, and gold dawn-priestess dress",
-        "petite curvy adult feminine dawn goddess build",
-        "gold scarab brooch"
+        "petite curvy adult feminine dawn goddess build"
       ]
     },
     "personalItem": {
@@ -156,8 +155,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "deep amber eyes; calm creator expression",
         "long bronze-gold hair",
         "black-crimson sunset creator gown with gold collar",
-        "mature voluptuous adult feminine queen build",
-        "small gold orb"
+        "mature voluptuous adult feminine queen build"
       ]
     },
     "personalItem": {
@@ -253,8 +251,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "dark blue eyes; unreadable sovereign gaze",
         "long black hair under translucent blue veil",
         "white-blue and gold hidden-sovereign gown",
-        "tall elegant adult feminine queen build",
-        "blue veil brooch"
+        "tall elegant adult feminine queen build"
       ]
     },
     "personalItem": {
@@ -351,8 +348,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "pale gold eyes; quiet ancient smile",
         "silver-white hair with blue veil ribbons",
         "white and pale blue airy goddess dress with gold feathers",
-        "graceful curvy adult feminine air mother build",
-        "feather veil fan"
+        "graceful curvy adult feminine air mother build"
       ]
     },
     "personalItem": {
@@ -450,8 +446,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "soft silver eyes; distant traveler gaze",
         "long silver-blue hair",
         "white-silver moon traveler gown with dark blue cloak",
-        "slender elegant adult feminine moon goddess build",
-        "silver moon disk mirror"
+        "slender elegant adult feminine moon goddess build"
       ]
     },
     "personalItem": {
@@ -550,8 +545,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "bright star-blue eyes; heraldic smile",
         "dark blue hair with silver star pins",
         "white-lapis herald gown with gold star belt",
-        "elegant adult feminine star herald build",
-        "star-tipped wand"
+        "elegant adult feminine star herald build"
       ]
     },
     "personalItem": {
@@ -649,8 +643,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "indigo eyes; composed celestial strategist expression",
         "black hair with silver streaks",
         "navy and gold star-map scholar gown",
-        "tall refined adult feminine celestial ruler build",
-        "star map tablet"
+        "tall refined adult feminine celestial ruler build"
       ]
     },
     "personalItem": {
@@ -748,8 +741,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "aqua-gold eyes; gentle cosmic mother smile",
         "long blue-white hair",
         "blue and ivory river-sky mother dress with gold collar",
-        "full curvy adult feminine goddess build",
-        "blue water chalice"
+        "full curvy adult feminine goddess build"
       ]
     },
     "personalItem": {
@@ -847,8 +839,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "gold and emerald eyes; diplomatic queen smile",
         "long black hair with red-white crown motif",
         "red-white-gold royal gown for the Two Lands",
-        "voluptuous adult feminine royal build",
-        "double crown hand fan"
+        "voluptuous adult feminine royal build"
       ]
     },
     "personalItem": {
@@ -947,8 +938,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "clear golden eyes; serene daylight expression",
         "pale gold flowing hair",
         "simple white-gold daylight oracle gown",
-        "slender graceful adult feminine solar oracle build",
-        "round gold mirror"
+        "slender graceful adult feminine solar oracle build"
       ]
     },
     "personalItem": {
@@ -1044,8 +1034,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "emerald snake-like eyes; protective royal stare",
         "long black-green hair",
         "emerald-black cobra guardian gown with gold collar",
-        "voluptuous adult feminine royal guardian build",
-        "cobra-head scepter"
+        "voluptuous adult feminine royal guardian build"
       ]
     },
     "personalItem": {
@@ -1143,8 +1132,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "pale gold eyes; stern motherly expression",
         "long white-gold hair",
         "white-and-gold winged mantle gown with vulture motifs",
-        "tall elegant adult feminine matron build",
-        "white feather fan"
+        "tall elegant adult feminine matron build"
       ]
     },
     "personalItem": {
@@ -1239,8 +1227,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "amber catlike eyes; wild confident smile",
         "dark brown wild hair",
         "leopard-gold desert huntress dress with light armor",
-        "athletic curvy adult feminine huntress build",
-        "short hunting bow"
+        "athletic curvy adult feminine huntress build"
       ]
     },
     "personalItem": {
@@ -1331,8 +1318,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "soft brown eyes; precise seamstress gaze",
         "black hair in a neat bun",
         "cream and gold linen-weaver priestess dress",
-        "slender elegant adult feminine artisan build",
-        "linen spool"
+        "slender elegant adult feminine artisan build"
       ]
     },
     "personalItem": {
@@ -1429,8 +1415,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "gray-gold eyes; quiet fate-reader expression",
         "long ash-brown hair",
         "ivory-black fate measurer robe with gold waist cord",
-        "elegant adult feminine oracle build",
-        "measuring rope"
+        "elegant adult feminine oracle build"
       ]
     },
     "personalItem": {
@@ -1621,8 +1606,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "burning amber eyes; loyal guard expression",
         "copper hair tied high",
         "bronze-gold lioness shieldmaiden dress",
-        "powerful adult feminine guard build",
-        "bronze shield"
+        "powerful adult feminine guard build"
       ]
     },
     "personalItem": {
@@ -1713,8 +1697,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "gold-violet eyes; intense magical queen stare",
         "long black hair with gold beads",
         "black and gold high ritual queen gown",
-        "mature voluptuous adult feminine magical sovereign build",
-        "ritual necklace"
+        "mature voluptuous adult feminine magical sovereign build"
       ]
     },
     "personalItem": {
@@ -1810,8 +1793,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "violet eyes; confident alluring smile",
         "long dark auburn hair",
         "velvet red and gold goddess gown with opaque glamour styling",
-        "voluptuous adult feminine beauty goddess build",
-        "lotus mirror"
+        "voluptuous adult feminine beauty goddess build"
       ]
     },
     "personalItem": {
@@ -1908,8 +1890,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "green-gold eyes; calm serpent-binder expression",
         "black hair with green jewelry",
         "black-emerald serpent priestess gown",
-        "slender curvy adult feminine guardian build",
-        "serpent bracelet"
+        "slender curvy adult feminine guardian build"
       ]
     },
     "personalItem": {
@@ -2007,8 +1988,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "red-gold eyes; menacing night-serpent smile",
         "long black-red hair",
         "black and crimson eclipse war dress",
-        "tall athletic adult feminine chaos warrior build",
-        "black curved blade"
+        "tall athletic adult feminine chaos warrior build"
       ]
     },
     "personalItem": {
@@ -2100,8 +2080,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "gold eyes; steady guardian gaze",
         "gold-brown braided hair",
         "gold and black solar guardian armor dress",
-        "strong adult feminine shield guardian build",
-        "gold round shield"
+        "strong adult feminine shield guardian build"
       ]
     },
     "personalItem": {
@@ -2201,7 +2180,7 @@ const solarNecropolisEgyptExpansion2Characters = [
       "itemRole": "ritual_item",
       "itemFamily": "staff",
       "description": "crook staff",
-      "withItemPrompt": "holding, raising, or presenting crook staff as a ritual focus, not used for melee striking, clearly separated from aura effects, face, hands, and body silhouette",
+      "withItemPrompt": "holding or presenting the crook staff upright beside the body as a ceremonial authority symbol, not an attack weapon, clearly separated from aura effects, face, hands, and body silhouette",
       "noItemRemove": [
         "carrying",
         "crook",
@@ -2215,7 +2194,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "wielding",
         "writing"
       ],
-      "itemGuard": "Keep crook staff readable as a non-weapon ritual_item; do not let it become a blade, shield, or attack effect. Crook staff is ceremonial; not active weapon."
+      "itemGuard": "Keep crook staff readable as a non-weapon ritual_item; use it as ceremonial regalia, not an attack weapon. Do not swing, slash, stab, strike, block, or turn it into a melee weapon."
     },
     "promptProfile": {
       "preferredFraming": [
@@ -2291,8 +2270,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "silver eyes; silent mysterious expression",
         "black hair under a dark veil",
         "black-bronze silent tomb priestess gown",
-        "slender adult feminine night ritualist build",
-        "small bronze bell"
+        "slender adult feminine night ritualist build"
       ]
     },
     "personalItem": {
@@ -2389,8 +2367,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "aqua eyes; serene river-lady smile",
         "blue-green long hair",
         "teal and gold river noble gown with shell jewelry",
-        "graceful curvy adult feminine river lady build",
-        "shell hand mirror"
+        "graceful curvy adult feminine river lady build"
       ]
     },
     "personalItem": {
@@ -2490,8 +2467,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "sunset-orange eyes; warm farewell smile",
         "long auburn hair",
         "orange-gold and black western horizon gown",
-        "elegant adult feminine funerary hostess build",
-        "funerary flower"
+        "elegant adult feminine funerary hostess build"
       ]
     },
     "personalItem": {
@@ -2590,8 +2566,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "pale blue eyes; refined perfumer smile",
         "long dark blue hair",
         "lapis and gold perfume princeps gown",
-        "slender glamorous adult feminine beauty figure",
-        "perfume bottle"
+        "slender glamorous adult feminine beauty figure"
       ]
     },
     "personalItem": {
@@ -2690,8 +2665,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "wine-red eyes; dangerous elegant smile",
         "dark burgundy hair",
         "crimson and gold wine-priestess gown",
-        "voluptuous adult feminine ritual hostess build",
-        "red wine jar"
+        "voluptuous adult feminine ritual hostess build"
       ]
     },
     "personalItem": {
@@ -2789,8 +2763,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "blue-gold eyes; watchful guardian expression",
         "gold-brown hair",
         "blue and gold sphinx guardian gown",
-        "curvy adult feminine dream guardian build",
-        "small sphinx amulet"
+        "curvy adult feminine dream guardian build"
       ]
     },
     "personalItem": {
@@ -2888,8 +2861,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "dual-toned gold eyes; stern gatekeeper stare",
         "two-tone black and gold hair",
         "gold-black lion gate shieldmaiden armor dress",
-        "powerful adult feminine guardian build",
-        "twin lion shield"
+        "powerful adult feminine guardian build"
       ]
     },
     "personalItem": {
@@ -2982,8 +2954,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "earth-gold eyes; confident harvest ruler smile",
         "black hair with wheat ornaments",
         "green-gold harvest sovereign dress",
-        "voluptuous adult feminine harvest ruler build",
-        "grain sickle"
+        "voluptuous adult feminine harvest ruler build"
       ]
     },
     "personalItem": {
@@ -3079,8 +3050,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "sharp gold eyes; cold legal executioner gaze",
         "short black hair",
         "black-white temple executioner dress with gold linework",
-        "lean athletic adult feminine judge build",
-        "justice dagger"
+        "lean athletic adult feminine judge build"
       ]
     },
     "personalItem": {
@@ -3172,8 +3142,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "dark brown eyes; cautious shrine keeper expression",
         "brown-black hair",
         "black and cream shrine-keeper dress with gold key belt",
-        "slender adult feminine caretaker build",
-        "shrine key"
+        "slender adult feminine caretaker build"
       ]
     },
     "personalItem": {
@@ -3363,8 +3332,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "green-gold eyes; cheerful abundance smile",
         "gold-brown braided hair",
         "wheat-gold linen dress with green sash",
-        "healthy curvy adult feminine grain spirit build",
-        "wheat basket"
+        "healthy curvy adult feminine grain spirit build"
       ]
     },
     "personalItem": {
@@ -3460,8 +3428,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "amber eyes; welcoming tavern-priestess smile",
         "dark amber hair",
         "brown-gold temple hostess dress",
-        "voluptuous adult feminine offering mistress build",
-        "clay beer jar"
+        "voluptuous adult feminine offering mistress build"
       ]
     },
     "personalItem": {
@@ -3556,8 +3523,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "bright blue eyes; joyful temple singer smile",
         "black hair with gold ribbons",
         "white-gold temple singer gown",
-        "graceful adult feminine performer build",
-        "small harp"
+        "graceful adult feminine performer build"
       ]
     },
     "personalItem": {
@@ -3652,8 +3618,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "rose-gold eyes; dawn priestess calm",
         "pink-gold hair",
         "white and dawn-pink priestess dress",
-        "slender elegant adult feminine dawn ritualist build",
-        "incense burner"
+        "slender elegant adult feminine dawn ritualist build"
       ]
     },
     "personalItem": {
@@ -3750,8 +3715,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "clear blue eyes; gentle purifier expression",
         "pale blue long hair",
         "white-blue purification robe with gold collar",
-        "graceful adult feminine purifier build",
-        "blue purification bowl"
+        "graceful adult feminine purifier build"
       ]
     },
     "personalItem": {
@@ -3847,8 +3811,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "bronze eyes; vigilant threshold guard stare",
         "dark bronze hair",
         "bronze and black threshold guard armor dress",
-        "athletic adult feminine guard build",
-        "bronze spear"
+        "athletic adult feminine guard build"
       ]
     },
     "personalItem": {
@@ -3941,8 +3904,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "green-gold eyes; magnetic queen smile",
         "long glossy black hair",
         "gold and black Nile queen gown with royal collar",
-        "voluptuous adult feminine royal beauty build",
-        "gold asp bracelet"
+        "voluptuous adult feminine royal beauty build"
       ]
     },
     "personalItem": {
@@ -4039,8 +4001,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "deep brown eyes; poised iconic gaze",
         "black hair under tall blue crown",
         "blue, gold, and white royal icon gown",
-        "tall elegant adult feminine queen build",
-        "blue crown and hand mirror"
+        "tall elegant adult feminine queen build"
       ]
     },
     "personalItem": {
@@ -4148,7 +4109,7 @@ const solarNecropolisEgyptExpansion2Characters = [
       "itemRole": "ritual_item",
       "itemFamily": "staff",
       "description": "ceremonial crook staff",
-      "withItemPrompt": "holding, raising, or presenting ceremonial crook staff as a ritual focus, not used for melee striking, clearly separated from aura effects, face, hands, and body silhouette",
+      "withItemPrompt": "holding or presenting the ceremonial crook staff upright beside the body as pharaonic ritual regalia, not an attack weapon, clearly separated from aura effects, face, hands, and body silhouette",
       "noItemRemove": [
         "carrying",
         "ceremonial",
@@ -4163,7 +4124,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "wielding",
         "writing"
       ],
-      "itemGuard": "Keep ceremonial crook staff readable as a non-weapon ritual_item; do not let it become a blade, shield, or attack effect. Crook staff ceremonial, not weapon."
+      "itemGuard": "Keep ceremonial crook staff readable as a non-weapon ritual_item; use it as pharaonic regalia, not an attack weapon. Do not swing, slash, stab, strike, block, or turn it into a melee weapon."
     },
     "promptProfile": {
       "preferredFraming": [
@@ -4240,8 +4201,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "soft dark eyes; mysterious golden-tomb expression",
         "short black hair under gold headpiece",
         "gold and lapis funerary princess dress",
-        "slender elegant adult feminine tomb icon build",
-        "gold death mask held beside body"
+        "slender elegant adult feminine tomb icon build"
       ]
     },
     "personalItem": {
@@ -4340,8 +4300,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "intense gold eyes; visionary oracle stare",
         "long bronze hair",
         "white-gold sun oracle robe with angular collar",
-        "slender adult feminine oracle build",
-        "gold sun disk tablet"
+        "slender adult feminine oracle build"
       ]
     },
     "personalItem": {
@@ -4440,8 +4399,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "wet dark eyes; tender mourning expression",
         "long black hair with lotus pins",
         "white and pale gold mourning queen dress",
-        "graceful curvy adult feminine queen build",
-        "lotus bouquet"
+        "graceful curvy adult feminine queen build"
       ]
     },
     "personalItem": {
@@ -4538,8 +4496,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "warm brown eyes; gentle devotional smile",
         "black hair with gold temple beads",
         "white-gold temple singer princess gown",
-        "elegant adult feminine devotional performer build",
-        "temple sistrum"
+        "elegant adult feminine devotional performer build"
       ]
     },
     "personalItem": {
@@ -4735,8 +4692,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "gold-red eyes; fierce warlord grin",
         "black-red hair tied high",
         "black and bronze desert warlord armor dress",
-        "muscular curvy adult feminine warlord build",
-        "scorpion mace"
+        "muscular curvy adult feminine warlord build"
       ]
     },
     "personalItem": {
@@ -4830,8 +4786,7 @@ const solarNecropolisEgyptExpansion2Characters = [
         "warm gray eyes; proud architect smile",
         "short black hair with gold pins",
         "cream-gold architect queen dress with clean geometric lines",
-        "elegant adult feminine architect build",
-        "small pyramid model"
+        "elegant adult feminine architect build"
       ]
     },
     "personalItem": {
