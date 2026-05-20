@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd CharacterUniverseReact && npm install && npm run build",
+  "outputDirectory": "CharacterUniverseReact/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
